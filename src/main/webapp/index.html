@@ -2,38 +2,51 @@
 <html ng-app="calories">
 <head>
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
   	<script src="js/app.js"></script>
+  	
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
 	<title>Calories counter</title>
 </head>
 <body ng-controller="CaloriesController as calories">
 
 	<div class="container">
-	  <div class="jumbotron">
-	    <h1>Calories Counter</h1>
-	    <p>This application will help you to control your calories consume per day.</p>
-	    <p>Hi, {{calories.loggedUser.name}}.</p>
-	  </div>
-	  <div class="row">
-	    <div class="col-sm-4">
-	      <h3>Column 1</h3>
-	      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-	      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
-	    </div>
-	    <div class="col-sm-4">
-	      <h3>Column 2</h3>
-	      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-	      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
-	    </div>
-	    <div class="col-sm-4">
-	      <h3>Column 3</h3> 
-	      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-	      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
-	    </div>
-	  </div>	  
+		<div class="jumbotron">
+		  <h1>Calories Counter</h1>
+		  <p>This application will help you to control your calories consume per day.</p>
+		  <p>Hi, {{calories.loggedUser.name}}.</p>
+		</div>
+	
+	  	<section class="tab" ng-controller="SectionController as section">
+	  		<ul class="nav nav-pills">
+		  		<li ng-class="{active:section.isSelected(1)}"> <a href ng-click="section.setTab(1)">Meals</a> </li>
+		  		<li ng-class="{active:section.isSelected(2)}"> <a href ng-click="section.setTab(2)">Settings</a> </li>
+	  		</ul>
+	  		<div class="panel" ng-show="section.isSelected(1)">
+	  			<table class="table">
+		            <thead>
+		              <tr>
+		                <th>Date</th>
+		                <th>Time</th>
+		                <th>Description</th>
+		                <th>Calories</th>
+		              </tr>
+		            </thead>
+		            <tbody>
+		              <tr ng-repeat="meal in calories.loggedUser.meals">
+		                <td>{{meal.date| date:'mediumDate'}}</td>
+		                <td>{{meal.date| date:'shortTime'}}</td>
+		                <td>{{meal.text}}</td>
+		                <td>{{meal.calories}}</td>
+		              </tr>
+		            </tbody>
+		         </table>
+	  		</div>	
+	  		<div class="panel" ng-show="section.isSelected(2)">
+	  			<blockquote>Settings</blockquote>
+	  		</div>	  		
+	  	</section>
+	  	
 	</div>
 
 </body>
