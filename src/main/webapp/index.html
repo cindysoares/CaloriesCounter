@@ -17,16 +17,29 @@
 		  <div ng-show="calories.loggedUser" align="right">
 			<a href class="btn btn-primary btn-md" ng-click="calories.logout()">Logout</a>
 		  </div>
-		  <div ng-hide="calories.loggedUser" align="right">
-			<a href class="btn btn-primary btn-md" ng-click="calories.login()">Login</a>
+		  <div ng-hide="calories.loggedUser || calories.loggingShowing" align="right">
+			<a href class="btn btn-primary btn-md" ng-click="calories.showLogin()">Login</a>
 		  </div>
 		  <h3>Calories Counter</h3>
-		  <div ng-hide="calories.loggedUser">
+		  <div ng-show="calories.loggingShowing">
+		  	<form>
+		  		<fieldset class="form-group">
+		  			User:
+		  			<input type="text" class="form-control" required/>
+		  		</fieldset>
+		  		<fieldset class="form-group">
+		  			Password:			              	
+		  			<input type="password" class="form-control" required/>
+		  		</fieldset>
+		  		<a href class="btn btn-primary btn-md" ng-click="calories.login()">Login</a>
+		  	</form>
+		  </div>
+		  <div ng-hide="calories.loggedUser || calories.loggingShowing">
 			  <p>This application will help you to control your calories consume per day. 
 			  <a href ng-click="" >Register</a> now.
 		  </div>
 		  <div ng-show="calories.loggedUser">
-			<p>Hi {{calories.loggedUser.name}}, how many calories do you consume today?</p>
+			<p>Hi {{calories.loggedUser.name}}, how many calories did you consume today?</p>
 		  </div>
 		</div>
 	
@@ -35,6 +48,7 @@
 		  		<li ng-class="{active:section.isSelected(1)}"> <a href ng-click="section.setTab(1)">Meals</a> </li>
 		  		<li ng-class="{active:section.isSelected(2)}"> <a href ng-click="section.setTab(2)">Settings</a> </li>
 	  		</ul>
+	  		<meals ng-show="section.isSelected(1)" ></meals>
 	  		<div class="panel" ng-show="section.isSelected(1)" ng-controller="EditMealController as editMeal">
 	  			<div><form name="formMeal">
 		  			<table class="table">

@@ -10,12 +10,17 @@
 	};
   
 	app.controller('CaloriesController', function(){
-		this.loggedUser = user;
+		this.loggedUser = null;
+		this.loggingShowing = false;
 		this.logout = function() {
-			this.loggedUser = {};
+			this.loggedUser = null;
 		};
 		this.login = function() {
 			this.loggedUser = user;
+			this.loggingShowing = false;
+		};
+		this.showLogin = function() {
+			this.loggingShowing = true;
 		};
 	});
   
@@ -26,6 +31,43 @@
 		};
 		this.isSelected = function(tab) {
 			return this.selectedTab === tab;
+		};
+	});
+	
+	app.directive('meals', function(){
+		return { restrict: 'E', templateUrl: 'meals.html',
+			controller: function() {
+				this.editedMeal = {};
+				this.editMode = false;
+				this.setEditMode = function(value) {
+					this.editMode = value;
+				};
+				this.removeMeal = function(mealToRemove) {
+					var index = -1;		
+					var mealsArray = eval( this.loggedUser.meals );
+					for( var i = 0; i < mealsArray.length; i++ ) {
+						if( mealsArray[i].id === mealToRemove.id ) {
+							index = i;
+							break;
+						}
+					}
+					if( index === -1 ) {
+						alert( "Something gone wrong" );
+					}
+					this.users.meals.splice( index, 1 );
+					this.editedMeal = {};
+					this.editMode = false;
+				};
+				this.addMeal = function() {
+					this.loggedUser.meals.push(editedMeal);
+					this.editedMeal = {};
+					this.editMode = false;
+				};
+				this.updateMeal = function() {
+					this.loggedUser.meals.push(editedMeal);
+				};
+
+			}, controllerAs: 'editMeal'
 		};
 	});
 	
