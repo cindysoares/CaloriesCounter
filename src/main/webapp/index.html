@@ -2,7 +2,9 @@
 <html ng-app="calories">
 <head>
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-  	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
+  	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
+  	<script	src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   	<script src="js/app.js"></script>
   	
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
@@ -12,18 +14,29 @@
 
 	<div class="container">
 		<div class="jumbotron">
-		  <h1>Calories Counter</h1>
-		  <p>This application will help you to control your calories consume per day.</p>
-		  <p>Hi, {{calories.loggedUser.name}}.</p>
+		  <div ng-show="calories.loggedUser" align="right">
+			<a href class="btn btn-primary btn-md" ng-click="calories.logout()">Logout</a>
+		  </div>
+		  <div ng-hide="calories.loggedUser" align="right">
+			<a href class="btn btn-primary btn-md" ng-click="calories.login()">Login</a>
+		  </div>
+		  <h3>Calories Counter</h3>
+		  <div ng-hide="calories.loggedUser">
+			  <p>This application will help you to control your calories consume per day. 
+			  <a href ng-click="" >Register</a> now.
+		  </div>
+		  <div ng-show="calories.loggedUser">
+			<p>Hi {{calories.loggedUser.name}}, how many calories do you consume today?</p>
+		  </div>
 		</div>
 	
-	  	<section class="tab" ng-controller="SectionController as section">
+	  	<section class="tab" ng-controller="SectionController as section" ng-show="calories.loggedUser">
 	  		<ul class="nav nav-pills">
 		  		<li ng-class="{active:section.isSelected(1)}"> <a href ng-click="section.setTab(1)">Meals</a> </li>
 		  		<li ng-class="{active:section.isSelected(2)}"> <a href ng-click="section.setTab(2)">Settings</a> </li>
 	  		</ul>
 	  		<div class="panel" ng-show="section.isSelected(1)" ng-controller="EditMealController as editMeal">
-	  			<div><!--  ng-hide="editMeal.editMode"> -->
+	  			<div><form name="formMeal">
 		  			<table class="table">
 			            <thead>
 			              <tr>
@@ -40,12 +53,13 @@
 			                <td>{{meal.text}}</td>
 			                <td>{{meal.calories}}</td>
 			                <td>
-			                	<a href><span style="font-size:1.5em;" class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+			                	<a href ng-click="editMeal.updateMeal()"><span style="font-size:1.5em;" class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
 			                	<a href ng-click="editMeal.removeMeal(meal)"><span style="font-size:1.5em;" class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span></a>
 			                </td>
 			              </tr>
 			              <tr ng-show="editMeal.editMode">
 			              	<td><fieldset class="form-group">
+			              	
 		  						<input type="date" class="form-control" required/>
 		  					</fieldset></td>
 		  					<td><fieldset class="form-group">
@@ -58,12 +72,12 @@
 		  						<input type="number" class="form-control" required/>
 		  					</fieldset></td>
 		  					<td>
-		  						<a href><span style="font-size:1.5em;" class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span></a>
+		  						<a href ng-click="editMeal.addMeal()"><span style="font-size:1.5em;" class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span></a>
 		  						<a href ng-click="editMeal.setEditMode(false)"><span style="font-size:1.5em;" class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></a>
 		  					</td>
 			              </tr>
 			            </tbody>
-			         </table>
+			         </table></form>
 			  		<div align="right" class="padding: 1.0" ng-hide="editMeal.editMode">
 			  			<a href ng-click="editMeal.setEditMode(true)"><span style="font-size:1.5em;" class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></a>
 			  		</div>
