@@ -12,6 +12,7 @@
 	app.controller('CaloriesController', function(){
 		this.loggedUser = null;
 		this.loggingShowing = false;
+		this.registeringShowing = false;
 		this.logout = function() {
 			this.loggedUser = null;
 		};
@@ -21,6 +22,15 @@
 		};
 		this.showLogin = function() {
 			this.loggingShowing = true;
+			this.registeringShowing = false;
+		};
+		this.showRegister = function() {
+			this.registeringShowing = true;
+			this.loggingShowing = false;
+		};
+		this.register = function() {
+			this.loggedUser = user;
+			this.registeringShowing = false;			
 		};
 	});
   

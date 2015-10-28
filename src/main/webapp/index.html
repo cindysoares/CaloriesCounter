@@ -20,11 +20,15 @@
 		  <div ng-hide="calories.loggedUser || calories.loggingShowing" align="right">
 			<a href class="btn btn-primary btn-md" ng-click="calories.showLogin()">Login</a>
 		  </div>
-		  <h3>Calories Counter</h3>
+		  <h2>Calories Counter</h2>
+		  <div ng-hide="calories.loggedUser">
+			  <p>This application will help you to control your calories consume per day. 
+			  <a href ng-click="calories.showRegister()" >Register</a> now.
+		  </div>
 		  <div ng-show="calories.loggingShowing">
 		  	<form>
 		  		<fieldset class="form-group">
-		  			User:
+		  			E-mails:
 		  			<input type="text" class="form-control" required/>
 		  		</fieldset>
 		  		<fieldset class="form-group">
@@ -32,12 +36,30 @@
 		  			<input type="password" class="form-control" required/>
 		  		</fieldset>
 		  		<a href class="btn btn-primary btn-md" ng-click="calories.login()">Login</a>
+		  		or <a href ng-click="calories.showRegister()" >Register</a>
 		  	</form>
 		  </div>
-		  <div ng-hide="calories.loggedUser || calories.loggingShowing">
-			  <p>This application will help you to control your calories consume per day. 
-			  <a href ng-click="" >Register</a> now.
-		  </div>
+		  <div ng-show="calories.registeringShowing">
+		  	<form>
+		  		<fieldset class="form-group">
+		  			Name:
+		  			<input type="text" class="form-control" required/>
+		  		</fieldset>		  	
+		  		<fieldset class="form-group">
+		  			E-mail:
+		  			<input type="email" class="form-control" required/>
+		  		</fieldset>
+		  		<fieldset class="form-group">
+		  			Password:			              	
+		  			<input type="password" class="form-control" required/>
+		  		</fieldset>
+		  		<fieldset class="form-group">
+		  			Repeat password:			              	
+		  			<input type="password" class="form-control" required/>
+		  		</fieldset>		  		
+		  		<a href class="btn btn-primary btn-md" ng-click="calories.register()">Save</a>
+		  	</form>
+		  </div>		  
 		  <div ng-show="calories.loggedUser">
 			<p>Hi {{calories.loggedUser.name}}, how many calories did you consume today?</p>
 		  </div>
