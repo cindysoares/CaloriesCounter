@@ -68,11 +68,15 @@
 	  	<section class="tab" ng-controller="SectionController as section" ng-show="calories.loggedUser">
 	  		<ul class="nav nav-pills">
 		  		<li ng-class="{active:section.isSelected(1)}"> <a href ng-click="section.setTab(1)">Meals</a> </li>
-		  		<li ng-class="{active:section.isSelected(2)}"> <a href ng-click="section.setTab(2)">Settings</a> </li>
+		  		<li ng-class="{active:section.isSelected(2)}"> <a href ng-click="section.setTab(2)"><span style="font-size:1.5em;" class="glyphicon glyphicon-cog" aria-hidden="true"></a> </li>
 	  		</ul>
 	  		<meals ng-show="section.isSelected(1)" ></meals>
 	  		<div class="panel" ng-show="section.isSelected(2)">
-	  			<blockquote>Settings</blockquote>
+	  			<fieldset class="form-group">
+		  			Daily calorie limit:
+		  			<input type="text" class="form-control" required/>
+		  		</fieldset>
+	  			<a href class="btn btn-primary btn-md" >Save</a>
 	  		</div>	  		
 	  	</section>
 	  	
