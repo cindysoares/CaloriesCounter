@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html ng-app="calories">
 <head>
-	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-  	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
-  	<script	src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	<script	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-  	<script src="js/app.js"></script>
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+  	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
+  	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script	type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  	<script type="text/javascript" src="js/app.js"></script>
   	
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
 	<title>Calories counter</title>
@@ -49,54 +49,6 @@
 		  		<li ng-class="{active:section.isSelected(2)}"> <a href ng-click="section.setTab(2)">Settings</a> </li>
 	  		</ul>
 	  		<meals ng-show="section.isSelected(1)" ></meals>
-	  		<div class="panel" ng-show="section.isSelected(1)" ng-controller="EditMealController as editMeal">
-	  			<div><form name="formMeal">
-		  			<table class="table">
-			            <thead>
-			              <tr>
-			                <th>Date</th>
-			                <th>Time</th>
-			                <th>Description</th>
-			                <th>Calories</th>
-			              </tr>
-			            </thead>
-			            <tbody>
-			              <tr ng-repeat="meal in calories.loggedUser.meals">
-			                <td>{{meal.date| date:'mediumDate'}}</td>
-			                <td>{{meal.date| date:'shortTime'}}</td>
-			                <td>{{meal.text}}</td>
-			                <td>{{meal.calories}}</td>
-			                <td>
-			                	<a href ng-click="editMeal.updateMeal()"><span style="font-size:1.5em;" class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
-			                	<a href ng-click="editMeal.removeMeal(meal)"><span style="font-size:1.5em;" class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span></a>
-			                </td>
-			              </tr>
-			              <tr ng-show="editMeal.editMode">
-			              	<td><fieldset class="form-group">
-			              	
-		  						<input type="date" class="form-control" required/>
-		  					</fieldset></td>
-		  					<td><fieldset class="form-group">
-		  						<input type="time" class="form-control" required/>
-		  					</fieldset></td>
-		  					<td><fieldset class="form-group">
-		  						<input type="text" class="form-control" required/>
-		  					</fieldset></td>
-		  					<td><fieldset class="form-group">
-		  						<input type="number" class="form-control" required/>
-		  					</fieldset></td>
-		  					<td>
-		  						<a href ng-click="editMeal.addMeal()"><span style="font-size:1.5em;" class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span></a>
-		  						<a href ng-click="editMeal.setEditMode(false)"><span style="font-size:1.5em;" class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></a>
-		  					</td>
-			              </tr>
-			            </tbody>
-			         </table></form>
-			  		<div align="right" class="padding: 1.0" ng-hide="editMeal.editMode">
-			  			<a href ng-click="editMeal.setEditMode(true)"><span style="font-size:1.5em;" class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></a>
-			  		</div>
-		  		</div>
-		  	</div>	
 	  		<div class="panel" ng-show="section.isSelected(2)">
 	  			<blockquote>Settings</blockquote>
 	  		</div>	  		
