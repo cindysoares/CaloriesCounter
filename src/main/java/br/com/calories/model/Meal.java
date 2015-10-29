@@ -10,16 +10,21 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Meal {
 	
+	private static int counter = 0;
+	
 	private Integer id;
 	private String description;
 	private Date date;
 	private Integer calories;
+	
+	public Meal() {
+		this.id = ++counter;
+	}
+	
 	public Integer getId() {
 		return id;
 	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
+	
 	public String getDescription() {
 		return description;
 	}

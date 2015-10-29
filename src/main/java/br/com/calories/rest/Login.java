@@ -1,24 +1,24 @@
 package br.com.calories.rest;
 
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
 
+import br.com.calories.dao.UserDAO;
 import br.com.calories.model.User;
 
-@Path("/")
-@Produces(MediaType.TEXT_HTML)
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
+@Path("/login")
 public class Login {
 	
-	@Path("/login/{email}/{password}")
+	private UserDAO dao = new UserDAO();
+	
+	@GET
+	@Path("/{email}/{password}")
+	@Produces(MediaType.APPLICATION_JSON)
 	public User login(@PathParam("email") String email, @PathParam("password") String password) {
-		return new User();
+		return dao.find(email);
 	}
 
 }

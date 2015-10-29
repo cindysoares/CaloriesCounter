@@ -1,6 +1,6 @@
 package br.com.calories.model;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -11,18 +11,32 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class User {
 	
+	private static int counter = 0;
+	
 	private Integer id;
 	private String name;
 	private String email;
-	private List<Meal> meals = new ArrayList<Meal>();
+	private List<Meal> meals = new LinkedList<Meal>();
 	private Integer caloriesLimit;
+	
+	private Profile profile;
+	
+	public User(String name, String email, Integer caloriesLimit, Profile profile) {
+		this.id = ++counter;
+		this.name = name;
+		this.email = email;
+		this.caloriesLimit = caloriesLimit;
+		this.profile = profile;
+	}
 	
 	public Integer getId() {
 		return id;
 	}
-	public void setId(Integer id) {
-		this.id = id;
+	
+	public Profile getProfile() {
+		return profile;
 	}
+	
 	public String getName() {
 		return name;
 	}
@@ -38,8 +52,8 @@ public class User {
 	public List<Meal> getMeals() {
 		return meals;
 	}
-	public void setMeals(List<Meal> meals) {
-		this.meals = meals;
+	public boolean addMeal(Meal meal) {
+		return this.meals.add(meal);
 	}
 	public Integer getCaloriesLimit() {
 		return caloriesLimit;
@@ -47,6 +61,7 @@ public class User {
 	public void setCaloriesLimit(Integer caloriesLimit) {
 		this.caloriesLimit = caloriesLimit;
 	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
