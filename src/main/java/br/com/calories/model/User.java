@@ -3,13 +3,10 @@ package br.com.calories.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@Produces(MediaType.TEXT_XML)
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class User {

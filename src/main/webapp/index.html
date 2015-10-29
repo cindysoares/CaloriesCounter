@@ -71,9 +71,9 @@
 		  		<li ng-class="{active:section.isSelected(2)}"> <a href ng-click="section.setTab(2)"><span style="font-size:1.5em;" class="glyphicon glyphicon-cog" aria-hidden="true"></a> </li>
 	  		</ul>
 	  		<meals ng-show="section.isSelected(1)" ></meals>
-	  		<div class="panel" ng-show="section.isSelected(2)">
+	  		<div class="panel" ng-show="section.isSelected(2)" ng-controller="SettingsController as settings">
 	  			<fieldset class="form-group">
-		  			Daily calorie limit:
+		  			Daily calorie limit: {{settings.caloriesLimit}}
 		  			<input type="text" class="form-control" required/>
 		  		</fieldset>
 	  			<a href class="btn btn-primary btn-md" >Save</a>

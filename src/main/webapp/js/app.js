@@ -1,5 +1,15 @@
 (function(){
-	var app = angular.module('calories', []);
+	var app = angular.module('calories',[]);
+	
+	app.controller('SettingsController', ['$http', function($http) {
+		var caloriesLimit = 0;
+		$http.get('/rest/settings/1/2000').then(function(data){
+			alert('call the service');
+			this.caloriesLimit = data;
+		}).catch(function(reason) {
+			alert('erro: ' + reason);
+		});
+	}]);
 	
 	var user = { 
 			name: 'Cindy', 
