@@ -19,7 +19,7 @@
 			        ] 
 	};
   
-	app.controller('CaloriesController', function(){
+	app.controller('CaloriesController', ['$http', function($http){
 		this.loggedUser = null;
 		this.loggingShowing = false;
 		this.registeringShowing = false;
@@ -27,7 +27,12 @@
 			this.loggedUser = null;
 		};
 		this.login = function() {
-			this.loggedUser = user;
+			$http.get('/rest/login', {email: 'cindy@gmail.com', password: 'xxx'}).success(function(data, status, headers, config) {
+				this.loggedUser = data;
+			}).catch(function(reason) {
+				alert('erro: ' + reason);
+			});
+			//this.loggedUser = user;
 			this.loggingShowing = false;
 		};
 		this.showLogin = function() {
@@ -42,7 +47,7 @@
 			this.loggedUser = user;
 			this.registeringShowing = false;			
 		};
-	});
+	}]);
   
 	app.controller('SectionController', function() {
 		this.selectedTab = 1;
