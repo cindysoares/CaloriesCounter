@@ -6,13 +6,14 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import br.com.calories.dao.MemoryUserDAO;
 import br.com.calories.dao.UserDAO;
 import br.com.calories.model.User;
 
 @Path("/")
 public class Login {
 	
-	private UserDAO dao = new UserDAO();
+	private UserDAO dao = new MemoryUserDAO();
 	
 	@GET
 	@Path("/login")
