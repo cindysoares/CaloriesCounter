@@ -3,7 +3,7 @@
 	
 	app.controller('SettingsController', ['$http', function($http) {
 		var caloriesLimit = 0;
-		$http.get('/rest/settings/1/2000').then(function(data){
+		$http.get('/settings/1/2000').then(function(data){
 			alert('call the service');
 			this.caloriesLimit = data;
 		}).catch(function(reason) {
@@ -27,7 +27,7 @@
 			this.loggedUser = null;
 		};
 		this.login = function() {
-			$http.get('/rest/login', {email: 'cindy@gmail.com', password: 'xxx'}).success(function(data, status, headers, config) {
+			$http.get('/login', {email: 'cindy@email.com', password: 'xxx'}).success(function(data, status, headers, config) {
 				this.loggedUser = data;
 			}).catch(function(reason) {
 				alert('erro: ' + reason);

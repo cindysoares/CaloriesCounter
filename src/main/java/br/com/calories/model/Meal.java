@@ -17,6 +17,9 @@ public class Meal {
 	private Date date;
 	private Integer calories;
 	
+	public Meal() {
+	}
+	
 	public Meal(Date date, String description, Integer calories) {
 		this.id = ++counter;
 		this.date = date;

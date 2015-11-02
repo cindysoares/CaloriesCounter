@@ -7,10 +7,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.codehaus.jackson.annotate.JsonTypeName;
-
 @XmlRootElement
-@JsonTypeName
 @XmlAccessorType(XmlAccessType.FIELD)
 public class User {
 	
@@ -23,6 +20,9 @@ public class User {
 	private Integer caloriesLimit;
 	
 	private Profile profile;
+	
+	public User() {
+	}
 	
 	public User(String name, String email, Integer caloriesLimit, Profile profile) {
 		this.id = ++counter;

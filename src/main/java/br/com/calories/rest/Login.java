@@ -11,16 +11,22 @@ import br.com.calories.dao.UserDAO;
 import br.com.calories.model.User;
 
 @Path("/")
+@Produces(MediaType.APPLICATION_JSON)
 public class Login {
 	
 	private UserDAO dao = new MemoryUserDAO();
 	
 	@GET
 	@Path("/login")
-	@Produces(MediaType.TEXT_PLAIN)
 	public User login(@QueryParam("email") String email, @QueryParam("password") String password) {
 		System.out.println("login: " + email);
-		return dao.find(email);
+		User user = dao.find(email);
+		if(user == null) {
+			System.out.println("Didn´t find any user with this email.");
+		} else {
+			System.out.println("User found: " + user.getName());
+		}
+		return user;
 	}
 
 }
