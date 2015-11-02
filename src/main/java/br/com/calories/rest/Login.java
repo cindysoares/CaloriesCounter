@@ -21,10 +21,8 @@ public class Login {
 	public User login(@QueryParam("email") String email, @QueryParam("password") String password) {
 		System.out.println("login: " + email);
 		User user = dao.find(email);
-		if(user == null) {
-			System.out.println("Didn´t find any user with this email.");
-		} else {
-			System.out.println("User found: " + user.getName());
+		if(user != null && !password.equals(user.getPassword())) {
+			user = null;
 		}
 		return user;
 	}

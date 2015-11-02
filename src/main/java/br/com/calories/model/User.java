@@ -15,19 +15,22 @@ public class User {
 	
 	private Integer id;
 	private String name;
-	private String email;
+	private String email;	
 	private List<Meal> meals = new LinkedList<Meal>();
 	private Integer caloriesLimit;
 	
 	private Profile profile;
 	
+	private transient String password;
+	
 	public User() {
 	}
 	
-	public User(String name, String email, Integer caloriesLimit, Profile profile) {
+	public User(String name, String email, String password, Integer caloriesLimit, Profile profile) {
 		this.id = ++counter;
 		this.name = name;
 		this.email = email;
+		this.password = password;
 		this.caloriesLimit = caloriesLimit;
 		this.profile = profile;
 	}
@@ -67,6 +70,9 @@ public class User {
 	}
 	public void setCaloriesLimit(Integer caloriesLimit) {
 		this.caloriesLimit = caloriesLimit;
+	}
+	public String getPassword() {
+		return password;
 	}
 	
 	@Override

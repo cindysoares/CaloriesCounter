@@ -11,9 +11,9 @@ public class MemoryUserDAO implements UserDAO {
 	private static Set<User> users = new HashSet<User>();
 	
 	static {
-		users.add(new User("Cindy", "cindy@email.com", 1800, Profile.USER));
-		users.add(new User("User manager", "manager@email.com", null, Profile.USER_MANAGER));
-		users.add(new User("User admin", "admin@email.com", null, Profile.ADMIN_MANAGER));
+		users.add(new User("Cindy", "cindy@email.com", "senha", 1800, Profile.USER));
+		users.add(new User("User manager", "manager@email.com", "1234", null, Profile.USER_MANAGER));
+		users.add(new User("User admin", "admin@email.com", "4321", null, Profile.ADMIN_MANAGER));
 	}
 	
 	public User find(Integer userId) {

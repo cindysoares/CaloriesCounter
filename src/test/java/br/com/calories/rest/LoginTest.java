@@ -1,19 +1,17 @@
 package br.com.calories.rest;
 
-import static org.junit.Assert.assertTrue;
-
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 
-import org.glassfish.jersey.client.ClientConfig;
-import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
 import org.glassfish.jersey.test.TestProperties;
+import org.junit.Assert;
 import org.junit.Test;
 
+import br.com.calories.model.Profile;
+import br.com.calories.model.User;
 import br.com.calories.rest.config.JerseyConfig;
-import br.com.calories.rest.config.MyObjectMapperProvider;
 
 public class LoginTest extends JerseyTest {
 	
@@ -25,26 +23,36 @@ public class LoginTest extends JerseyTest {
         return new JerseyConfig();
     }
 
-    @Override
-    protected void configureClient(ClientConfig config) {
-        config.register(new JacksonFeature()).register(MyObjectMapperProvider.class);
+    @Test
+    public void test_loginUserSuccess() {
+        WebTarget target = target();
+        User responseMsg = target.path("/login")
+        		.queryParam("email", "cindy@email.com")
+        		.queryParam("password", "senha")
+        		.request(MediaType.APPLICATION_JSON).get(User.class);
+        Assert.assertNotNull("Didn´t find any user.", responseMsg);
+        Assert.assertEquals("Wrong user.", "Cindy", responseMsg.getName());
+        Assert.assertEquals("Wrong profile.", Profile.USER, responseMsg.getProfile());
+        Assert.assertNull("Shouldn´t serialize password.", responseMsg.getPassword());
+    }
+    
+    @Test
+    public void test_loginUserWhenPasswordIsWrong() {
+        WebTarget target = target();
+        User responseMsg = target.path("/login")
+        		.queryParam("email", "cindy@email.com")
+        		.queryParam("password", "xxxx")
+        		.request(MediaType.APPLICATION_JSON).get(User.class);
+        Assert.assertNull("Shouldn´t return any user.", responseMsg);
     }
 
     @Test
-    public void test() {
+    public void test_loginUserWhenUserDoesntExists() {
         WebTarget target = target();
-        String responseMsg = target.path("/login")
-        		.queryParam("email", "cindy@email.com")
-        		.request(MediaType.APPLICATION_JSON).get(String.class);
-        assertTrue("Response: " + responseMsg, responseMsg.replaceAll("[ \t]*", "").contains("[]"));
+        User responseMsg = target.path("/login")
+        		.queryParam("email", "any@email.com")
+        		.request(MediaType.APPLICATION_JSON).get(User.class);
+        Assert.assertNull("Shouldn´t find any user.", responseMsg);
     }
-
-/*    @Test
-    public void testJSONPPresent() {
-        WebTarget target = target();
-        String responseMsg = target.path("nonJaxbResource").request("application/javascript").get(String.class);
-        assertTrue(responseMsg.startsWith("callback("));
-    }
-*/
 
 }

@@ -20,9 +20,9 @@ public class UsersManager {
 	@POST
 	@Path("/add")
 	@Produces(MediaType.APPLICATION_JSON)
-	public User addUser(@QueryParam("name") String name, @QueryParam("email") String email, 
+	public User addUser(@QueryParam("name") String name, @QueryParam("email") String email, @QueryParam("password") String password, 
 			@QueryParam("caloriesLimit") Integer caloriesLimit, @QueryParam("profile") String profile) {
-		User user = new User(name, email, caloriesLimit, Profile.valueOf(profile));
+		User user = new User(name, email, password, caloriesLimit, Profile.valueOf(profile));
 		dao.save(user);
 		return user;
 	}
