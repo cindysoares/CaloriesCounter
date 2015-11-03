@@ -9,7 +9,7 @@
 			        ] 
 	};
 
-	app.controller('CaloriesController', function(loginFactory, $scope){
+	app.controller('CaloriesController', function(){
 		this.loggedUser = null;
 		this.loggingShowing = false;
 		this.registeringShowing = false;
@@ -30,8 +30,8 @@
 		};
 	});
   
-	app.controller('SectionController', function($scope) {
-		this.selectedTab = 1;
+	app.controller('SectionController', function() {
+		this.selectedTab = 'meals';
 		this.setTab = function(newTab) {
 			this.selectedTab = newTab;
 		};
