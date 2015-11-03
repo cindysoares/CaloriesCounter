@@ -1,6 +1,6 @@
 (function() {
 	
-	var loginApp = angular.module('login', []);	
+	var loginApp = angular.module('login', ['ngMessages']);	
 	
 	loginApp.factory('loginFactory', function($http) {
 		var myService = {
@@ -16,12 +16,18 @@
 	});
 	
 	loginApp.controller('LoginCtrl', function(loginFactory, $scope) {
-		this.email = null;
-		this.password = null;
+		this.email = "cindy@email.com"; // FIXME remove this value 
+		this.password = "senha"; // FIXME remove this value 
+		this.$messages = {};
 		this.submit = function() {
-			loginFactory.async(this.email, this.password).then(function(d) { 
+			loginFactory.async(this.email, this.password).then(function(d) {
 				$scope.calories.loggedUser = d;
-				$scope.calories.loggingShowing = false;
+				if(!d) {
+					$scope.login.$messages.invalidLogin = true;
+				} else {
+					$scope.login.$messages.invalidLogin = false;
+					$scope.calories.loggingShowing = false;
+				}
 			});
 		};
 	});  
