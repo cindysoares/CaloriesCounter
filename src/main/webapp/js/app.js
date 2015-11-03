@@ -1,48 +1,27 @@
 (function(){
-	var app = angular.module('calories',[]);
+	var app = angular.module('calories',['login']);
 	
 	app.controller('SettingsController', ['$http', function($http) {
 		var caloriesLimit = 0;
 		$http.get('/settings/1/2000').then(function(data){
 			this.caloriesLimit = data;
-		}).catch(function(reason) {
-			alert('erro: ' + reason);
 		});
 	}]);
 	
-	var user = { 
+	var user = {
 			name: 'Cindy', 
 			meals: [{date: new Date(2015, 9, 25, 14), text:'lunch', calories: 600, id: 1},
 			        {date: new Date(2015, 9, 25, 14), text:'breakfast', calories: 200, id:2},
 			        {date: new Date(2015, 9, 25, 14), text:'dinner', calories: 400, id: 3}
 			        ] 
 	};
-	
-	app.factory('loginFactory', function($http) {
-		var myService = {
-				async: function () {
-					var promise = $http.get('/login', { params: {email: 'cindy@email.com', password: 'senha'} })
-					.then(function(response){
-						return response.data;
-					});
-					return promise;
-				}
-		};
-		return myService;
-	});
-  
+
 	app.controller('CaloriesController', function(loginFactory, $scope){
 		this.loggedUser = null;
 		this.loggingShowing = false;
 		this.registeringShowing = false;
 		this.logout = function() {
 			this.loggedUser = null;
-		};
-		this.login = function() {
-			loginFactory.async().then(function(d) { 
-				$scope.calories.loggedUser = d;
-				$scope.calories.loggingShowing = false;
-			});
 		};
 		this.showLogin = function() {
 			this.loggingShowing = true;

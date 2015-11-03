@@ -6,6 +6,7 @@
   	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script	type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   	<script type="text/javascript" src="js/app.js"></script>
+  	<script type="text/javascript" src="js/login.js"></script>
   	
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
 	<title>Calories counter</title>
@@ -26,16 +27,16 @@
 			  <a href ng-click="calories.showRegister()" >Register</a> now.
 		  </div>
 		  <div ng-show="calories.loggingShowing">
-		  	<form>
+		  	<form name="loginForm" ng-controller="LoginCtrl as login" ng-submit="login.submit()">
 		  		<fieldset class="form-group">
 		  			E-mails:
-		  			<input type="text" class="form-control" required/>
+		  			<input type="text" class="form-control" ng-model="login.email" required/>
 		  		</fieldset>
 		  		<fieldset class="form-group">
 		  			Password:			              	
-		  			<input type="password" class="form-control" required/>
+		  			<input type="password" class="form-control" ng-model="login.password" required/>
 		  		</fieldset>
-		  		<a href class="btn btn-primary btn-md" ng-click="calories.login()">Login</a>
+		  		<input type="submit" class="btn btn-primary btn-md" value="Login" />
 		  		or <a href ng-click="calories.showRegister()" >Register</a>
 		  	</form>
 		  </div>
