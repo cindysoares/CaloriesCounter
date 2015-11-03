@@ -18,8 +18,8 @@
 	settingsApp.controller('SettingsController', function(settingsService, $scope) {
 		this.caloriesLimit = null;
 		this.$messages = {};
-		this.save = function() {
-			this.calories = $scope.$parent.$parent.calories;
+		this.calories = $scope.$parent.$parent.calories;
+		this.save = function() {			
 			settingsService.async(this.calories.loggedUser.id, $scope.settings.caloriesLimit).then(function(d) {
 				this.result = d;
 				if(result) {
@@ -29,6 +29,15 @@
 				}
 			});
 		};
+		this.init = function() {
+			this.caloriesLimit = this.calories.loggedUser.caloriesLimit;
+		};
+		
+		$scope.$on("tabSelected", function(event, args){
+			if (args.selectedTab === 'settings') {
+				$scope.settings.init();	
+			}
+		});
 		
 	});
 	

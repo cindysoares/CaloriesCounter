@@ -30,19 +30,23 @@
 		};
 	});
   
-	app.controller('SectionController', function() {
+	app.controller('SectionController', function($scope) {
 		this.selectedTab = 'meals';
 		this.setTab = function(newTab) {
 			this.selectedTab = newTab;
+			$scope.tabSelected();	
 		};
 		this.isSelected = function(tab) {
 			return this.selectedTab === tab;
+		};
+		$scope.tabSelected = function(){
+		   $scope.$broadcast("tabSelected", {selectedTab: $scope.section.selectedTab});
 		};
 	});
 	
 	app.directive('meals', function(){
 		return { restrict: 'E', templateUrl: 'meals.html',
-			controller: function() {
+			controller: function($scope) {
 				this.editedMeal = {};
 				this.editMode = false;
 				this.setEditMode = function(value) {
@@ -73,6 +77,11 @@
 				this.updateMeal = function() {
 					this.loggedUser.meals.push(editedMeal);
 				};
+				this.init = function() {
+					// TODO
+				};
+				
+				$scope.$on("tabSelected", this.init);
 
 			}, controllerAs: 'editMeal'
 		};
