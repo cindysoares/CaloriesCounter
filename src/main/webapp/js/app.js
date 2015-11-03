@@ -4,7 +4,6 @@
 	app.controller('SettingsController', ['$http', function($http) {
 		var caloriesLimit = 0;
 		$http.get('/settings/1/2000').then(function(data){
-			alert('call the service');
 			this.caloriesLimit = data;
 		}).catch(function(reason) {
 			alert('erro: ' + reason);
@@ -18,8 +17,21 @@
 			        {date: new Date(2015, 9, 25, 14), text:'dinner', calories: 400, id: 3}
 			        ] 
 	};
+	
+	app.factory('loginFactory', function($http) {
+		var myService = {
+				async: function () {
+					var promise = $http.get('/login', { params: {email: 'cindy@email.com', password: 'senha'} })
+					.then(function(response){
+						return response.data;
+					});
+					return promise;
+				}
+		};
+		return myService;
+	});
   
-	app.controller('CaloriesController', ['$http', function($http){
+	app.controller('CaloriesController', function(loginFactory, $scope){
 		this.loggedUser = null;
 		this.loggingShowing = false;
 		this.registeringShowing = false;
@@ -27,13 +39,10 @@
 			this.loggedUser = null;
 		};
 		this.login = function() {
-			$http.get('/login', {email: 'cindy@email.com', password: 'xxx'}).success(function(data, status, headers, config) {
-				this.loggedUser = data;
-			}).catch(function(reason) {
-				alert('erro: ' + reason);
+			loginFactory.async().then(function(d) { 
+				$scope.calories.loggedUser = d;
+				$scope.calories.loggingShowing = false;
 			});
-			//this.loggedUser = user;
-			this.loggingShowing = false;
 		};
 		this.showLogin = function() {
 			this.loggingShowing = true;
@@ -47,7 +56,7 @@
 			this.loggedUser = user;
 			this.registeringShowing = false;			
 		};
-	}]);
+	});
   
 	app.controller('SectionController', function() {
 		this.selectedTab = 1;

@@ -31,7 +31,7 @@ public class LoginTest extends JerseyTest {
         		.queryParam("password", "senha")
         		.request(MediaType.APPLICATION_JSON).get(User.class);
         Assert.assertNotNull("Didn´t find any user.", responseMsg);
-        Assert.assertEquals("Wrong user.", "Cindy", responseMsg.getName());
+        Assert.assertEquals("Wrong user.", "Cindy Soares", responseMsg.getName());
         Assert.assertEquals("Wrong profile.", Profile.USER, responseMsg.getProfile());
         Assert.assertNull("Shouldn´t serialize password.", responseMsg.getPassword());
     }

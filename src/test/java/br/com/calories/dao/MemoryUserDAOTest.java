@@ -13,7 +13,7 @@ public class MemoryUserDAOTest {
 	public void testFindByEmail() {
 		User user = dao.find("cindy@email.com");
 		Assert.assertNotNull("Didn´t find the user.", user);
-		Assert.assertEquals("Wrong user.", "Cindy", user.getName());
+		Assert.assertEquals("Wrong user.", "Cindy Soares", user.getName());
 	}
 
 	@Test
@@ -26,7 +26,7 @@ public class MemoryUserDAOTest {
 	public void testFindById() {
 		User user = dao.find(1);
 		Assert.assertNotNull("Didn´t find the user.", user);
-		Assert.assertEquals("Wrong user.", "Cindy", user.getName());
+		Assert.assertEquals("Wrong user.", "Cindy Soares", user.getName());
 	}
 
 }
