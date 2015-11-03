@@ -1,12 +1,5 @@
 (function(){
-	var app = angular.module('calories',['login']);
-	
-	app.controller('SettingsController', ['$http', function($http) {
-		var caloriesLimit = 0;
-		$http.get('/settings/1/2000').then(function(data){
-			this.caloriesLimit = data;
-		});
-	}]);
+	var app = angular.module('calories', ['login', 'settings']);
 	
 	var user = {
 			name: 'Cindy', 
@@ -37,7 +30,7 @@
 		};
 	});
   
-	app.controller('SectionController', function() {
+	app.controller('SectionController', function($scope) {
 		this.selectedTab = 1;
 		this.setTab = function(newTab) {
 			this.selectedTab = newTab;

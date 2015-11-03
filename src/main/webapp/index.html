@@ -6,8 +6,10 @@
   	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script	type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="https://code.angularjs.org/1.3.0/angular-messages.min.js"></script>
+  
   	<script type="text/javascript" src="js/app.js"></script>
   	<script type="text/javascript" src="js/login.js"></script>
+  	<script type="text/javascript" src="js/settings.js"></script>
   	
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
 	<title>Calories counter</title>
@@ -37,7 +39,7 @@
 		  			Password:			              	
 		  			<input type="password" class="form-control" ng-model="login.password" required/>
 		  		</fieldset>
-		  		<div class="formMessage" ng-messages="login.$messages" ng-messages-include="messages.html"></div>
+		  		<div ng-messages="login.$messages" ng-messages-include="messages.html"></div>
 		  		<input type="submit" class="btn btn-primary btn-md" value="Login" />
 		  		or <a href ng-click="calories.showRegister()" >Register</a>
 		  	</form>
@@ -74,13 +76,16 @@
 		  		<li ng-class="{active:section.isSelected(2)}"> <a href ng-click="section.setTab(2)"><span style="font-size:1.5em;" class="glyphicon glyphicon-cog" aria-hidden="true"></a> </li>
 	  		</ul>
 	  		<meals ng-show="section.isSelected(1)" ></meals>
-	  		<div class="panel" ng-show="section.isSelected(2)" ng-controller="SettingsController as settings">
-	  			<fieldset class="form-group">
-		  			Daily calorie limit: {{settings.caloriesLimit}}
-		  			<input type="text" class="form-control" required/>
-		  		</fieldset>
-	  			<a href class="btn btn-primary btn-md" >Save</a>
-	  		</div>	  		
+	  		<div class="panel" ng-show="section.isSelected(2)">
+				<form name="settingsForm" ng-controller="SettingsController as settings" ng-submit="settings.save()">
+					<fieldset class="form-group">
+						Daily calories limit: 
+						<input type="number" class="form-control" ng-model="settings.caloriesLimit" required />
+					</fieldset>
+					<div ng-messages="settings.$messages" ng-messages-include="messages.html"></div>
+					<input type="submit" class="btn btn-primary btn-md" value="Save" />
+				</form>
+			</div>	  		
 	  	</section>
 	  	
 	</div>

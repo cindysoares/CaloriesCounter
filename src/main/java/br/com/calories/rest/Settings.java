@@ -1,6 +1,7 @@
 package br.com.calories.rest;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -15,7 +16,7 @@ public class Settings {
 
 	private UserDAO dao = new MemoryUserDAO();
 	
-	@GET
+	@POST
 	@Path("/{userId}/{calories}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public boolean setCaloriesLimit(@PathParam("userId") Integer userId,
