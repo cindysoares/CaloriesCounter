@@ -1,7 +1,5 @@
 package br.com.calories.rest;
 
-import java.util.Date;
-
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 

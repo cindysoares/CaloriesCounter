@@ -1,7 +1,21 @@
 (function(){
 	var mealsApp = angular.module('meals', []);
 	
-	mealsApp.controller('MealsCtrl', function($scope) {
+	mealsApp.factory('addMealService',  function($http) {
+		var myService = {
+				async: function (userId, meal) {
+					var promise = $http.post("/meals/add/" + userId, null, 
+							{params: {description: meal.description, calories: meal.calories}})
+					.then(function(response){
+						return response.data;
+					});
+					return promise;
+				}
+		};
+		return myService;
+	});
+	
+	mealsApp.controller('MealsCtrl', function($scope, addMealService) {
 		this.editedMeal = {};
 		this.editMode = false;
 		this.calories = $scope.$parent.$parent.calories;
@@ -27,9 +41,14 @@
 			this.editMode = false;
 		};
 		this.addMeal = function() {
-			this.calories.loggedUser.meals.push(this.editedMeal);
-			this.editedMeal = {};
-			this.editMode = false;
+			addMealService.async(this.calories.loggedUser.id, this.editedMeal).then(function(d){
+				if (d != null) {
+					$scope.editMeal.calories.loggedUser.meals.push(d);
+					$scope.editMeal.editedMeal = {};
+					$scope.editMeal.editMode = false;
+				}
+			});
+			
 		};
 		this.updateMeal = function() {
 			this.loggedUser.meals.push(editedMeal);
