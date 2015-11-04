@@ -4,6 +4,8 @@
 	mealsApp.controller('MealsCtrl', function($scope) {
 		this.editedMeal = {};
 		this.editMode = false;
+		this.calories = $scope.$parent.$parent.calories;
+		
 		this.setEditMode = function(value) {
 			this.editMode = value;
 		};
@@ -25,13 +27,16 @@
 			this.editMode = false;
 		};
 		this.addMeal = function() {
-			this.loggedUser.meals.push(editedMeal);
+			this.calories.loggedUser.meals.push(this.editedMeal);
 			this.editedMeal = {};
 			this.editMode = false;
 		};
 		this.updateMeal = function() {
 			this.loggedUser.meals.push(editedMeal);
 		};
+		this.save = function() {
+			alert('saving');
+		}
 		this.init = function() {
 			// TODO
 		};
