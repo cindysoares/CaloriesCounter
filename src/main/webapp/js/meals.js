@@ -5,7 +5,7 @@
 		var myService = {
 				async: function (userId, meal) {
 					var promise = $http.post("/meals/add/" + userId, null, 
-							{params: {description: meal.description, calories: meal.calories}})
+							{params: {date: meal.date.getTime(), description: meal.description, calories: meal.calories}})
 					.then(function(response){
 						return response.data;
 					});
