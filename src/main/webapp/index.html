@@ -29,21 +29,7 @@
 			  <p>This application will help you to control your calories consume per day. 
 			  <a href ng-click="calories.showRegister()" >Register</a> now.
 		  </div>
-		  <div ng-show="calories.loggingShowing">
-		  	<form name="loginForm" ng-controller="LoginCtrl as login" ng-submit="login.submit()">
-		  		<fieldset class="form-group">
-		  			E-mails:
-		  			<input type="text" class="form-control" ng-model="login.email" required/>
-		  		</fieldset>
-		  		<fieldset class="form-group">
-		  			Password:			              	
-		  			<input type="password" class="form-control" ng-model="login.password" required/>
-		  		</fieldset>
-		  		<div ng-messages="login.$messages" ng-messages-include="messages.html"></div>
-		  		<input type="submit" class="btn btn-primary btn-md" value="Login" />
-		  		or <a href ng-click="calories.showRegister()" >Register</a>
-		  	</form>
-		  </div>
+		  <login ng-show="calories.loggingShowing"></login>
 		  <div ng-show="calories.registeringShowing">
 		  	<form>
 		  		<fieldset class="form-group">

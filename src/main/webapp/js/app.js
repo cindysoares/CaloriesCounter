@@ -44,6 +44,10 @@
 		};
 	});
 	
+	app.directive('login', function() {
+		return { restrict: 'E', templateUrl: 'login.html' };
+	});
+	
 	app.directive('settings', function() {
 		return { restrict: 'E', templateUrl: 'settings.html' };
 	});
