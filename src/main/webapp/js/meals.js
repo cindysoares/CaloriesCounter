@@ -15,7 +15,20 @@
 		return myService;
 	});
 	
-	mealsApp.controller('MealsCtrl', function($scope, addMealService) {
+	mealsApp.factory('removeMealService',  function($http) {
+		var myService = {
+				async: function (userId, mealId) {
+					var promise = $http.post("/meals/remove/" + userId + "/" + mealId, null)
+					.then(function(response){
+						return response.data;
+					});
+					return promise;
+				}
+		};
+		return myService;
+	});
+	
+	mealsApp.controller('MealsCtrl', function($scope, addMealService, removeMealService) {
 		this.editedMeal = {};
 		this.editMode = false;
 		this.calories = $scope.$parent.$parent.calories;
@@ -25,8 +38,7 @@
 		};
 		this.removeMeal = function(mealToRemove) {
 			var index = -1;		
-			var mealsArray = eval( this.loggedUser.meals );
-			alert(mealsArray);
+			var mealsArray = eval( this.calories.loggedUser.meals );
 			for( var i = 0; i < mealsArray.length; i++ ) {
 				if( mealsArray[i].id === mealToRemove.id ) {
 					index = i;
@@ -36,7 +48,7 @@
 			if( index === -1 ) {
 				alert( "Something gone wrong" );
 			}
-			this.users.meals.splice( index, 1 );
+			this.calories.loggedUser.meals.splice( index, 1 );
 			this.editedMeal = {};
 			this.editMode = false;
 		};
@@ -47,8 +59,7 @@
 					$scope.editMeal.editedMeal = {};
 					$scope.editMeal.editMode = false;
 				}
-			});
-			
+			});			
 		};
 		this.updateMeal = function() {
 			this.loggedUser.meals.push(editedMeal);
