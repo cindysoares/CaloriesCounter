@@ -15,13 +15,13 @@ import br.com.calories.model.Meal;
 import br.com.calories.model.User;
 
 @Path("/meals")
+@Produces(MediaType.APPLICATION_JSON)
 public class MealsManager {
 	
 	private UserDAO dao = new MemoryUserDAO();
 	
 	@POST
 	@Path("/add/{userId}")
-	@Produces(MediaType.APPLICATION_JSON)
 	public Meal addMeal(@PathParam("userId") Integer userId, 
 			@QueryParam("date") Date date, @QueryParam("description") String description, @QueryParam("calories") Integer calories) {
 		User user = dao.find(userId);

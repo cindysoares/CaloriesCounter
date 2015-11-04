@@ -11,7 +11,6 @@ import org.junit.Test;
 
 import br.com.calories.model.Profile;
 import br.com.calories.model.User;
-import br.com.calories.rest.config.JerseyConfig;
 
 public class LoginTest extends JerseyTest {
 	

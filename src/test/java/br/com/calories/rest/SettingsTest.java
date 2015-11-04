@@ -9,8 +9,6 @@ import org.glassfish.jersey.test.TestProperties;
 import org.junit.Assert;
 import org.junit.Test;
 
-import br.com.calories.rest.config.JerseyConfig;
-
 public class SettingsTest extends JerseyTest {
 	
     @Override
