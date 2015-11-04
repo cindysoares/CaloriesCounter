@@ -38,9 +38,17 @@
 		</div>
 	
 	  	<section class="tab" ng-controller="SectionController as section" ng-show="calories.loggedUser">
-	  		<ul class="nav nav-pills">
-		  		<li ng-class="{active:section.isSelected('meals')}"> <a href ng-click="section.setTab('meals')">Meals</a> </li>
-		  		<li ng-class="{active:section.isSelected('settings')}"> <a href ng-click="section.setTab('settings')"><span style="font-size:1.5em;" class="glyphicon glyphicon-cog" aria-hidden="true"></a> </li>
+	  		<ul class="nav nav-pills" role="tablist">
+		  		<li role="presentation" ng-class="{active:section.isSelected('meals')}"> 
+		  			<a href ng-click="section.setTab('meals')">Meals</a> 
+		  		</li>
+		  		<li role="presentation" ng-class="{active:section.isSelected('settings')}"> 
+		  			<a href ng-click="section.setTab('settings')">
+		  			<span style="font-size:1.5em;" class="glyphicon glyphicon-cog" aria-hidden="true"/></a> 
+		  		</li>
+		  		<li role="presentation">
+		  			<span class="badge">{{calories.loggedUser.caloriesLimit}} daily calories</span>
+		  		</li>
 	  		</ul>
 	  		<meals ng-show="section.isSelected('meals')" ></meals>
 	  		<settings ng-show="section.isSelected('settings')"></settings>	
