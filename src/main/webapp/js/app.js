@@ -48,6 +48,10 @@
 		return { restrict: 'E', templateUrl: 'login.html' };
 	});
 	
+	app.directive('register', function() {
+		return { restrict: 'E', templateUrl: 'register.html' };
+	});
+	
 	app.directive('settings', function() {
 		return { restrict: 'E', templateUrl: 'settings.html' };
 	});
