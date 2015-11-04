@@ -20,9 +20,10 @@
 		this.$messages = {};
 		this.calories = $scope.$parent.$parent.calories;
 		this.save = function() {			
-			settingsService.async(this.calories.loggedUser.id, $scope.settings.caloriesLimit).then(function(d) {
+			settingsService.async(this.calories.loggedUser.id, this.caloriesLimit).then(function(d) {
 				this.result = d;
 				if(result) {
+					$scope.settings.calories.loggedUser.caloriesLimit = $scope.settings.caloriesLimit;
 					$scope.settings.$messages.success = true;
 				} else {
 					$scope.settings.$messages.error = true;
@@ -31,6 +32,8 @@
 		};
 		this.init = function() {
 			this.caloriesLimit = this.calories.loggedUser.caloriesLimit;
+			$scope.settings.$messages.success = false;
+			$scope.settings.$messages.error = false;
 		};
 		
 		$scope.$on("tabSelected", function(event, args){
