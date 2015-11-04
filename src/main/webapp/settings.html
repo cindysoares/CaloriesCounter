@@ -1,0 +1,15 @@
+<div class="panel" ng-show="section.isSelected('settings')">
+	<form name="settingsForm"
+		ng-controller="SettingsController as settings"
+		ng-submit="settings.save()">
+		
+		<fieldset class="form-group">
+			Daily calories limit: <input type="number" class="form-control"
+				ng-model="settings.caloriesLimit" required />
+		</fieldset>
+		
+		<div ng-messages="settings.$messages" ng-messages-include="messages.html"></div>
+		
+		<input type="submit" class="btn btn-primary btn-md" value="Save" />
+	</form>
+</div>

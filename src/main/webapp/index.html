@@ -76,16 +76,7 @@
 		  		<li ng-class="{active:section.isSelected('settings')}"> <a href ng-click="section.setTab('settings')"><span style="font-size:1.5em;" class="glyphicon glyphicon-cog" aria-hidden="true"></a> </li>
 	  		</ul>
 	  		<meals ng-show="section.isSelected('meals')" ></meals>
-	  		<div class="panel" ng-show="section.isSelected('settings')">
-				<form name="settingsForm" ng-controller="SettingsController as settings" ng-submit="settings.save()">
-					<fieldset class="form-group">
-						Daily calories limit: 
-						<input type="number" class="form-control" ng-model="settings.caloriesLimit" required />
-					</fieldset>
-					<div ng-messages="settings.$messages" ng-messages-include="messages.html"></div>
-					<input type="submit" class="btn btn-primary btn-md" value="Save" />
-				</form>
-			</div>	  		
+	  		<settings ng-show="section.isSelected('settings')"></settings>	
 	  	</section>
 	  	
 	</div>

@@ -44,6 +44,10 @@
 		};
 	});
 	
+	app.directive('settings', function() {
+		return { restrict: 'E', templateUrl: 'settings.html' };
+	});
+	
 	app.directive('meals', function(){
 		return { restrict: 'E', templateUrl: 'meals.html',
 			controller: function($scope) {
