@@ -47,4 +47,20 @@ public class MealsManagerTest  extends JerseyTest {
         Assert.assertNull("Added the meal to a non-existent .", responseMsg);
     }
 
+    @Test
+    public void test_removeMeal() {
+        WebTarget target = target();
+		Boolean responseMsg = target.path("/meals/remove/1/1")
+        		.request(MediaType.APPLICATION_JSON).delete(Boolean.class);
+        Assert.assertTrue("Didn´t remove the meal.", responseMsg);
+    }
+
+    @Test
+    public void test_removeNonExistentMeal() {
+        WebTarget target = target();
+		Boolean responseMsg = target.path("/meals/remove/1/9999")
+        		.request(MediaType.APPLICATION_JSON).delete(Boolean.class);
+        Assert.assertFalse("Removed a non-existent meal.", responseMsg);
+    }
+
 }

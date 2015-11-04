@@ -2,6 +2,7 @@ package br.com.calories.rest;
 
 import java.util.Date;
 
+import javax.ws.rs.DELETE;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -49,7 +50,7 @@ public class MealsManager {
 		return true;
 	}
 
-	@POST
+	@DELETE
 	@Path("/remove/{userId}/{mealId}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public boolean removeMeal(@PathParam("userId") Integer userId, @PathParam("mealId") Integer mealId) {
