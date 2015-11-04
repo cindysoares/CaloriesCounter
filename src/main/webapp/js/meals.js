@@ -18,7 +18,7 @@
 	mealsApp.factory('removeMealService',  function($http) {
 		var myService = {
 				async: function (userId, mealId) {
-					var promise = $http.post("/meals/remove/" + userId + "/" + mealId, null)
+					var promise = $http.delete("/meals/remove/" + userId + "/" + mealId)
 					.then(function(response){
 						return response.data;
 					});
@@ -32,25 +32,28 @@
 		this.editedMeal = {};
 		this.editMode = false;
 		this.calories = $scope.$parent.$parent.calories;
+		this.selectedIndex = -1;
 		
 		this.setEditMode = function(value) {
 			this.editMode = value;
 		};
 		this.removeMeal = function(mealToRemove) {
-			var index = -1;		
+			this.selectedIndex = -1
 			var mealsArray = eval( this.calories.loggedUser.meals );
 			for( var i = 0; i < mealsArray.length; i++ ) {
 				if( mealsArray[i].id === mealToRemove.id ) {
-					index = i;
+					this.selectedIndex = i;
 					break;
 				}
 			}
-			if( index === -1 ) {
+			if( this.selectedIndex === -1 ) {
 				alert( "Something gone wrong" );
 			}
-			this.calories.loggedUser.meals.splice( index, 1 );
-			this.editedMeal = {};
-			this.editMode = false;
+			removeMealService.async(this.calories.loggedUser.id, mealToRemove.id).then(function(removed) {
+				if (removed) {
+					$scope.editMeal.calories.loggedUser.meals.splice( $scope.editMeal.selectedIndex, 1 );
+				}
+			});			
 		};
 		this.addMeal = function() {
 			addMealService.async(this.calories.loggedUser.id, this.editedMeal).then(function(d){
@@ -64,9 +67,6 @@
 		this.updateMeal = function() {
 			this.loggedUser.meals.push(editedMeal);
 		};
-		this.save = function() {
-			alert('saving');
-		}
 		this.init = function() {
 			// TODO
 		};
