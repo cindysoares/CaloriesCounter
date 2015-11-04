@@ -10,7 +10,7 @@ import br.com.calories.dao.MemoryUserDAO;
 import br.com.calories.dao.UserDAO;
 import br.com.calories.model.User;
 
-@Path("/setttings")
+@Path("/settings")
 public class Settings {
 
 	private UserDAO dao = new MemoryUserDAO();
