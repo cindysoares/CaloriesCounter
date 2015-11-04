@@ -1,5 +1,7 @@
 package br.com.calories.rest;
 
+import java.util.Date;
+
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 
@@ -24,8 +26,9 @@ public class MealsManagerTest  extends JerseyTest {
     @Test
     public void test_addMeal() {
         WebTarget target = target();
-        Meal responseMsg = target.path("/meals/add/1")/*
-        		.queryParam("date", new Date())*/
+        Date date = new Date();
+		Meal responseMsg = target.path("/meals/add/1")
+        		.queryParam("date", date.getTime())
         		.queryParam("description", "snack")
         		.queryParam("calories", new Integer(200))
         		.request(MediaType.APPLICATION_JSON).post(null, Meal.class);
@@ -33,6 +36,7 @@ public class MealsManagerTest  extends JerseyTest {
         Assert.assertNotNull("Didn´t set an id.", responseMsg.getId());
         Assert.assertEquals("snack", responseMsg.getDescription());
         Assert.assertEquals(new Integer(200), responseMsg.getCalories());
+        Assert.assertEquals(date, responseMsg.getDate());
     }
     
     @Test

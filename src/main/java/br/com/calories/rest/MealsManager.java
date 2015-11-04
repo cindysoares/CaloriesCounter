@@ -23,11 +23,11 @@ public class MealsManager {
 	@POST
 	@Path("/add/{userId}")
 	public Meal addMeal(@PathParam("userId") Integer userId, 
-			@QueryParam("date") Date date, @QueryParam("description") String description, @QueryParam("calories") Integer calories) {
+			@QueryParam("date") long date, @QueryParam("description") String description, @QueryParam("calories") Integer calories) {
 		User user = dao.find(userId);
 		Meal meal = null;
 		if(user != null) {
-			meal = new Meal(date, description, calories);
+			meal = new Meal(new Date(date), description, calories);
 			user.addMeal(meal);
 		}
 		return meal;
