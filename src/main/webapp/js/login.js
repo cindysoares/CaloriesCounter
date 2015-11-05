@@ -27,8 +27,12 @@
 				} else {
 					$scope.login.$messages.invalidLogin = false;
 					$scope.calories.loggingShowing = false;
+					$scope.loginSuccess();
 				}
 			});
+		};
+		$scope.loginSuccess = function(){
+		   $scope.$parent.$broadcast("loginSuccess", {loggedUser: $scope.calories.loggedUser});
 		};
 	});  
 	

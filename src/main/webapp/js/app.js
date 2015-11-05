@@ -23,7 +23,7 @@
 	});
   
 	app.controller('SectionController', function($scope) {
-		this.selectedTab = 'meals';
+		this.selectedTab = {};
 		this.setTab = function(newTab) {
 			this.selectedTab = newTab;
 			$scope.tabSelected();	
@@ -34,6 +34,14 @@
 		$scope.tabSelected = function(){
 		   $scope.$broadcast("tabSelected", {selectedTab: $scope.section.selectedTab});
 		};
+		$scope.$on("loginSuccess", function(event, args){
+			if (args.loggedUser.profile === 'USER') {
+				$scope.section.setTab('meals');
+			} else {
+				$scope.section.setTab('users');
+			}
+		});
+		
 	});
 	
 	app.directive('login', function() {
