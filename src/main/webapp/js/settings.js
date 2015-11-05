@@ -24,9 +24,9 @@
 				this.result = d;
 				if(result) {
 					$scope.settings.calories.loggedUser.caloriesLimit = $scope.settings.caloriesLimit;
-					$scope.settings.$messages.success = true;
+					$scope.settings.$messages.saveSuccess = true;
 				} else {
-					$scope.settings.$messages.error = true;
+					$scope.settings.$messages.warning = true;
 				}
 			});
 		};
