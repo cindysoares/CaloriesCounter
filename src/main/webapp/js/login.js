@@ -21,18 +21,13 @@
 		this.$messages = {};
 		this.submit = function() {
 			loginFactory.async(this.email, this.password).then(function(d) {
-				$scope.calories.loggedUser = d;
+				$scope.calories.login(d);
 				if(!d) {
 					$scope.login.$messages.invalidLogin = true;
 				} else {
-					$scope.login.$messages.invalidLogin = false;
-					$scope.calories.loggingShowing = false;
-					$scope.loginSuccess();
+					$scope.login.$messages = {}
 				}
 			});
-		};
-		$scope.loginSuccess = function(){
-		   $scope.$parent.$broadcast("loginSuccess", {loggedUser: $scope.calories.loggedUser});
 		};
 	});  
 	

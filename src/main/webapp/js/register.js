@@ -29,7 +29,7 @@
 			}
 			userAddService.async(this.newUser).then(function(data) {
 				if(data != null) {
-					$scope.calories.register(data);
+					$scope.calories.login(data);
 					$scope.register.$messages.saveSuccess = true;
 					this.newUser = {};
 				} else {

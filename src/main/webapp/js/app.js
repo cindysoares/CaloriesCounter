@@ -5,7 +5,7 @@
 	                         USER_MANAGER: ['users'],
 	                         ADMIN_MANAGER: ['users', 'meals', 'settings'] };
 
-	app.controller('CaloriesController', function(){
+	app.controller('CaloriesController', function($scope){
 		this.loggedUser = null;
 		this.loggingShowing = false;
 		this.registeringShowing = false;
@@ -20,10 +20,15 @@
 			this.registeringShowing = true;
 			this.loggingShowing = false;
 		};
-		this.register = function(user) {
+		this.login = function(user) {
 			this.loggedUser = user;
+			this.loggingShowing = false;
 			this.registeringShowing = false;
+			$scope.loginSuccess();
 		};
+		$scope.loginSuccess = function(){
+		   $scope.$broadcast("loginSuccess", {loggedUser: $scope.calories.loggedUser});
+		};		
 	});
   
 	app.controller('SectionController', function($scope) {
