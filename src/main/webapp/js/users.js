@@ -32,7 +32,20 @@
 		return myService;
 	});
 	
-	usersApp.controller('UsersCtrl', function($scope, usersFindAllService, usersAddService) {
+	usersApp.factory('usersRemoveService', function($http) {
+		var myService = {
+				async: function (userId) {
+					var promise = $http.delete("/users/remove/"+userId)
+					.then(function(response){
+						return response.data;
+					});
+					return promise;
+				}
+		};
+		return myService;
+	});
+
+	usersApp.controller('UsersCtrl', function($scope, usersFindAllService, usersAddService, usersRemoveService) {
 		this.list = {};
 		this.editMode = false;
 		this.newUser = {}
@@ -61,6 +74,27 @@
 					$scope.users.$messages.warning = true;
 				}
 			});
+		};
+		this.removeUser = function(userToRemove) {
+			this.selectedIndex = -1
+			var usersArray = eval( this.list );
+			for( var i = 0; i < usersArray.length; i++ ) {
+				if( usersArray[i].id === userToRemove.id ) {
+					this.selectedIndex = i;
+					break;
+				}
+			}
+			if( this.selectedIndex === -1 ) {
+				this.$messages.warning = true;
+			}
+			usersRemoveService.async(userToRemove.id).then(function(removed) {
+				if (removed) {
+					$scope.users.list.splice( $scope.users.selectedIndex, 1 );
+					$scope.users.$messages.deleteSuccess = true;
+				} else {
+					$scope.users.$messages.warning = true;
+				}
+			});			
 		};
 		
 		$scope.$on("tabSelected", function(event, args){
