@@ -1,8 +1,27 @@
 <div ng-controller="UsersCtrl as users">
-	<ul class="list-group">
-		<li class="list-group-item" ng-repeat="user in users.list">
-			<span class="badge">{{user.caloriesLimit}} daily calories</span> 
-			{{user.name}} ({{user.email}}) - {{user.profile}}
-		</li>
-	</ul>
+	<form>
+		<ul class="list-group">
+			<li class="list-group-item" ng-repeat="user in users.list">
+				<span class="badge">{{user.caloriesLimit}} daily calories</span> 
+				{{user.name}} ({{user.email}}) - {{user.profile}}
+			</li>
+			<li class="list-group-item" ng-show="users.editMode">
+				<table><tr>
+				<td><input type="text" class="form-control" ng-model="users.newUser.name" placeholder="name" required/></td>
+				<td><input type="email" class="form-control" ng-model="users.newUser.email" placeholder="e-mail" required/></td>
+				<td><input type="password" class="form-control" ng-model="users.newUser.password" placeholder="new password" required/></td>
+				<td><input type="password" class="form-control" ng-model="users.newUser.repeatedPassword" placeholder="repeat password" required/></td>
+				<td><input type="text" class="form-control" ng-model="users.newUser.profile" placeholder="profile" required/></td>
+				<td>
+				<a href ng-click="users.addUser()"><span style="font-size:1.5em;" class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span></a>
+				<a href ng-click="users.setEditMode(false)"><span style="font-size:1.5em;" class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></a>
+				</td>
+				</tr></table>
+			</li>
+		</ul>
+		<div ng-messages="users.$messages" ng-messages-include="messages.html"></div>
+	</form>
+	<div align="right" class="padding: 1.0" ng-hide="users.editMode">
+		<a href ng-click="users.setEditMode(true)"><span style="font-size:1.5em;" class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></a>
+	</div>
 </div>
