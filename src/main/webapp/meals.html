@@ -41,7 +41,9 @@
 			</td>
            </tr>
          </tbody>
-      </table></form>
+      </table>
+      <div ng-messages="editMeal.$messages" ng-messages-include="messages.html"></div>
+    </form>
 	<div align="right" class="padding: 1.0" ng-hide="editMeal.editMode">
 		<a href ng-click="editMeal.setEditMode(true)"><span style="font-size:1.5em;" class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></a>
 		</div>

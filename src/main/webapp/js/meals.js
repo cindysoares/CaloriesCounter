@@ -29,6 +29,7 @@
 	});
 	
 	mealsApp.controller('MealsCtrl', function($scope, addMealService, removeMealService) {
+		this.$messages = {}
 		this.editedMeal = {};
 		this.editMode = false;
 		this.calories = $scope.$parent.$parent.calories;
@@ -47,11 +48,14 @@
 				}
 			}
 			if( this.selectedIndex === -1 ) {
-				alert( "Something gone wrong" );
+				this.$messages.warning = true;
 			}
 			removeMealService.async(this.calories.loggedUser.id, mealToRemove.id).then(function(removed) {
 				if (removed) {
 					$scope.editMeal.calories.loggedUser.meals.splice( $scope.editMeal.selectedIndex, 1 );
+					$scope.editMeal.$messages.deleteSuccess = true;
+				} else {
+					$scope.editMeal.$messages.warning = true;
 				}
 			});			
 		};
@@ -61,6 +65,9 @@
 					$scope.editMeal.calories.loggedUser.meals.push(d);
 					$scope.editMeal.editedMeal = {};
 					$scope.editMeal.editMode = false;
+					$scope.editMeal.$messages.saveSuccess = true;
+				} else {
+					$scope.editMeal.$messages.warning = true;
 				}
 			});			
 		};
@@ -68,10 +75,14 @@
 			this.loggedUser.meals.push(editedMeal);
 		};
 		this.init = function() {
-			// TODO
+			this.$messages = {}
 		};
 
-		$scope.$on("tabSelected", this.init);
+		$scope.$on("tabSelected", function(event, args){
+			if (args.selectedTab === 'meals') {
+				$scope.editMeal.init();	
+			}
+		});
 
 	});
 	
