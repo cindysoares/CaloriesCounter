@@ -1,7 +1,8 @@
 <div ng-controller="UsersCtrl as users">
 	<ul class="list-group">
-		<li class="list-group-item">
-			<span class="badge">14 daily calories</span> Cras justo odio
+		<li class="list-group-item" ng-repeat="user in users.list">
+			<span class="badge">{{user.caloriesLimit}} daily calories</span> 
+			{{user.name}} ({{user.email}}) - {{user.profile}}
 		</li>
 	</ul>
 </div>

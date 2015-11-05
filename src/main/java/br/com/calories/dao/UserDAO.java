@@ -1,5 +1,7 @@
 package br.com.calories.dao;
 
+import java.util.Set;
+
 import br.com.calories.model.User;
 
 public interface UserDAO {
@@ -13,5 +15,7 @@ public interface UserDAO {
 	boolean remove(Integer userId);
 
 	User save(User user);
+	
+	Set<User> findAll();
 
 }

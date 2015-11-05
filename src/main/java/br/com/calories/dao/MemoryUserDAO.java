@@ -60,5 +60,10 @@ public class MemoryUserDAO implements UserDAO {
 	public boolean remove(Integer userId) {
 		return users.remove(find(userId));
 	}
+	
+	@Override
+	public Set<User> findAll() {
+		return users;
+	}
 
 }

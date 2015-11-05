@@ -1,6 +1,9 @@
 package br.com.calories.rest;
 
+import java.util.Set;
+
 import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -56,6 +59,12 @@ public class UsersManager {
 			} catch(IllegalArgumentException ignored) {}
 		}
 		return profile;
-	}	
+	}
+	
+	@GET
+	@Path("/all")
+	public Set<User> getAll() {
+		return dao.findAll();
+	}
 
 }

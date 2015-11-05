@@ -1,5 +1,7 @@
 package br.com.calories.rest;
 
+import java.util.Set;
+
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 
@@ -84,5 +86,14 @@ public class UsersManagerTest extends JerseyTest {
         		.request(MediaType.APPLICATION_JSON).delete(Boolean.class);
         Assert.assertFalse("Removed a non-existend user.", responseMsg);
     }
+    
+    @Test
+    public void test_getAll() {
+    	WebTarget target = target();
+    	Set<?> responseMsg = target.path("/users/all")
+        		.request(MediaType.APPLICATION_JSON).get(Set.class);
+        Assert.assertNotNull("Didn´t find all users.", responseMsg);
+    }
+
 
 }

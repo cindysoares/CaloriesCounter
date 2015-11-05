@@ -1,5 +1,7 @@
 package br.com.calories.dao;
 
+import java.util.Set;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -27,6 +29,13 @@ public class MemoryUserDAOTest {
 		User user = dao.find(1);
 		Assert.assertNotNull("Didn´t find the user.", user);
 		Assert.assertEquals("Wrong user.", "Cindy Soares", user.getName());
+	}
+	
+	@Test
+	public void testFindAll() {
+		Set<User> users = dao.findAll();
+		Assert.assertNotNull("Didn´t find all users.", users);
+		Assert.assertEquals("Wrong total of users..", 3, users.size());
 	}
 
 }
