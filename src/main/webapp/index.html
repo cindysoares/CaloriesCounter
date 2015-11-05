@@ -41,17 +41,17 @@
 	
 	  	<section class="tab" ng-controller="SectionController as section" ng-show="calories.loggedUser">
 	  		<ul class="nav nav-pills" role="tablist">
-		  		<li role="presentation" ng-class="{active:section.isSelected('users')}"> 
+		  		<li role="presentation" ng-class="{active:section.isSelected('users')}" ng-show="section.tabIsVisible('users')"> 
 		  			<a href ng-click="section.setTab('users')">Users</a> 
 		  		</li>
-		  		<li role="presentation" ng-class="{active:section.isSelected('meals')}"> 
+		  		<li role="presentation" ng-class="{active:section.isSelected('meals')}" ng-show="section.tabIsVisible('meals')"> 
 		  			<a href ng-click="section.setTab('meals')">Meals</a> 
 		  		</li>
-		  		<li role="presentation" ng-class="{active:section.isSelected('settings')}"> 
+		  		<li role="presentation" ng-class="{active:section.isSelected('settings')}" ng-show="section.tabIsVisible('settings')"> 
 		  			<a href ng-click="section.setTab('settings')">
 		  			<span style="font-size:1.5em;" class="glyphicon glyphicon-cog" aria-hidden="true"/></a> 
 		  		</li>
-		  		<li role="presentation">
+		  		<li role="presentation" ng-show="section.tabIsVisible('settings')">
 		  			<span class="badge">{{calories.loggedUser.caloriesLimit}} daily calories</span>
 		  		</li>
 	  		</ul>

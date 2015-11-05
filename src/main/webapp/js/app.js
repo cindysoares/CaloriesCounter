@@ -1,5 +1,9 @@
 (function(){
 	var app = angular.module('calories', ['login', 'settings', 'meals', 'register', 'users']);
+	
+	var visibleTabsRoles = { USER: ['meals', 'settings'], 
+	                         USER_MANAGER: ['users'],
+	                         ADMIN_MANAGER: ['users', 'meals', 'settings'] };
 
 	app.controller('CaloriesController', function(){
 		this.loggedUser = null;
@@ -24,6 +28,7 @@
   
 	app.controller('SectionController', function($scope) {
 		this.selectedTab = {};
+		this.visibleTabs = [];
 		this.setTab = function(newTab) {
 			this.selectedTab = newTab;
 			$scope.tabSelected();	
@@ -31,15 +36,17 @@
 		this.isSelected = function(tab) {
 			return this.selectedTab === tab;
 		};
+		this.tabIsVisible = function(tab) {
+			if(this.visibleTabs.indexOf(tab) >= 0) return true;
+			return false;
+		}
 		$scope.tabSelected = function(){
 		   $scope.$broadcast("tabSelected", {selectedTab: $scope.section.selectedTab});
 		};
 		$scope.$on("loginSuccess", function(event, args){
-			if (args.loggedUser.profile === 'USER') {
-				$scope.section.setTab('meals');
-			} else {
-				$scope.section.setTab('users');
-			}
+			var userProfile = args.loggedUser.profile;
+			$scope.section.visibleTabs = visibleTabsRoles[userProfile];
+			$scope.section.setTab($scope.section.visibleTabs[0]);
 		});
 		
 	});
