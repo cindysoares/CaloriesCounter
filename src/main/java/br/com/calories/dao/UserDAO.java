@@ -8,10 +8,10 @@ public interface UserDAO {
 
 	User find(Integer userId);
 
-	boolean update(User user);
+	User update(User user);
 
 	boolean remove(Integer userId);
 
-	boolean save(User user);
+	User save(User user);
 
 }

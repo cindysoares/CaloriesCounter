@@ -26,7 +26,10 @@ public class Settings {
 			return false;
 		}
 		user.setCaloriesLimit(caloriesLimit);
-		return dao.update(user);
+		
+		User userUpdated = dao.update(user);
+		if(userUpdated == null) return false;
+		return true;
 	}
 	
 }

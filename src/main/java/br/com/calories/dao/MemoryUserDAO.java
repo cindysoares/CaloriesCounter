@@ -42,12 +42,19 @@ public class MemoryUserDAO implements UserDAO {
 		return users.stream().filter(u -> u.getEmail().equals(email)).findFirst().orElse(null);
 	}
 	
-	public boolean save(User user) {
-		return users.add(user);
+	public User save(User user) {
+		boolean saved = users.add(user);
+		if(saved) return user;
+		return null;
 	}
 	
-	public boolean update(User user) {
-		return true;
+	public User update(User user) {
+		boolean removed = users.remove(user);
+		if(removed) {
+			boolean saved = users.add(user);
+			if(saved) return user;
+		}
+		return null;
 	}
 	
 	public boolean remove(Integer userId) {
