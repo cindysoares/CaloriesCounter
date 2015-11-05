@@ -1,5 +1,5 @@
 (function(){
-	var app = angular.module('calories', ['login', 'settings', 'meals', 'register']);
+	var app = angular.module('calories', ['login', 'settings', 'meals', 'register', 'users']);
 
 	app.controller('CaloriesController', function(){
 		this.loggedUser = null;
@@ -51,5 +51,10 @@
 	app.directive('meals', function(){
 		return { restrict: 'E', templateUrl: 'meals.html' };
 	});
+	
+	app.directive('users', function(){
+		return { restrict: 'E', templateUrl: 'users.html' };
+	});
+		
 		
 })();

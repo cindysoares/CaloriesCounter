@@ -12,6 +12,7 @@
   	<script type="text/javascript" src="js/settings.js"></script>
   	<script type="text/javascript" src="js/meals.js"></script>
   	<script type="text/javascript" src="js/register.js"></script>
+  	<script type="text/javascript" src="js/users.js"></script>
   	
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
 	<title>Calories counter</title>
@@ -40,6 +41,9 @@
 	
 	  	<section class="tab" ng-controller="SectionController as section" ng-show="calories.loggedUser">
 	  		<ul class="nav nav-pills" role="tablist">
+		  		<li role="presentation" ng-class="{active:section.isSelected('users')}"> 
+		  			<a href ng-click="section.setTab('users')">Users</a> 
+		  		</li>
 		  		<li role="presentation" ng-class="{active:section.isSelected('meals')}"> 
 		  			<a href ng-click="section.setTab('meals')">Meals</a> 
 		  		</li>
@@ -51,8 +55,9 @@
 		  			<span class="badge">{{calories.loggedUser.caloriesLimit}} daily calories</span>
 		  		</li>
 	  		</ul>
+	  		<users ng-show="section.isSelected('users')"></users>
 	  		<meals ng-show="section.isSelected('meals')" ></meals>
-	  		<settings ng-show="section.isSelected('settings')"></settings>	
+	  		<settings ng-show="section.isSelected('settings')"></settings>
 	  	</section>
 	  	
 	</div>
