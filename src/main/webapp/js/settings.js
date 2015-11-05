@@ -32,8 +32,7 @@
 		};
 		this.init = function() {
 			this.caloriesLimit = this.calories.loggedUser.caloriesLimit;
-			$scope.settings.$messages.success = false;
-			$scope.settings.$messages.error = false;
+			$scope.settings.$messages = {};
 		};
 		
 		$scope.$on("tabSelected", function(event, args){
