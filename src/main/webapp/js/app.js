@@ -1,13 +1,5 @@
 (function(){
-	var app = angular.module('calories', ['login', 'settings', 'meals']);
-	
-	var user = {
-			name: 'Cindy', 
-			meals: [{date: new Date(2015, 9, 25, 14), text:'lunch', calories: 600, id: 1},
-			        {date: new Date(2015, 9, 25, 14), text:'breakfast', calories: 200, id:2},
-			        {date: new Date(2015, 9, 25, 14), text:'dinner', calories: 400, id: 3}
-			        ] 
-	};
+	var app = angular.module('calories', ['login', 'settings', 'meals', 'register']);
 
 	app.controller('CaloriesController', function(){
 		this.loggedUser = null;
@@ -24,9 +16,9 @@
 			this.registeringShowing = true;
 			this.loggingShowing = false;
 		};
-		this.register = function() {
+		this.register = function(user) {
 			this.loggedUser = user;
-			this.registeringShowing = false;			
+			this.registeringShowing = false;
 		};
 	});
   
