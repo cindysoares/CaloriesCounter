@@ -1,5 +1,5 @@
 (function(){
-	var mealsApp = angular.module('meals', []);
+	var mealsApp = angular.module('meals', ['ngMessages']);
 	
 	mealsApp.factory('addMealService',  function($http) {
 		var myService = {
@@ -37,6 +37,7 @@
 		
 		this.setEditMode = function(value) {
 			this.editMode = value;
+			this.init();
 		};
 		this.removeMeal = function(mealToRemove) {
 			this.selectedIndex = -1
