@@ -28,12 +28,13 @@
 		return myService;
 	});
 	
-	mealsApp.controller('MealsCtrl', function($scope, addMealService, removeMealService) {
+	mealsApp.controller('MealsCtrl', function($scope, $filter, addMealService, removeMealService) {
 		this.$messages = {}
 		this.editedMeal = {};
 		this.editMode = false;
 		this.calories = $scope.$parent.$parent.calories;
 		this.selectedIndex = -1;
+		this.dailyCaloriesCount = {};
 		
 		this.setEditMode = function(value) {
 			this.editMode = value;
@@ -77,7 +78,24 @@
 		};
 		this.init = function() {
 			this.$messages = {}
+			this.dailyCaloriesCount = {};
+			for ( var mealIndex in this.calories.loggedUser.meals) {
+				var meal = this.calories.loggedUser.meals[mealIndex];
+				var date = $filter('date')(meal.date, 'shortDate');
+				var count = this.dailyCaloriesCount[date];
+				if (!count) {
+					count = 0;
+				}
+				this.dailyCaloriesCount[date] = count + meal.calories;
+			}
 		};
+		this.isAboveTheLimit = function(date) {
+			var shortDate = $filter('date')(date, 'shortDate');
+			var count = this.dailyCaloriesCount[shortDate];
+			if(!count) return false;
+			if(count <= this.calories.loggedUser.caloriesLimit) return false;
+			return true;
+		}
 
 		$scope.$on("tabSelected", function(event, args){
 			if (args.selectedTab === 'meals') {

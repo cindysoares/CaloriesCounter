@@ -3,8 +3,10 @@
 		<ul class="list-group">
             <li class="list-group-item" ng-repeat="meal in calories.loggedUser.meals">
             	<ul class="nav nav-tabs nav-justified">
-              		<li>{{meal.date| date:'mediumDate'}} {{meal.date| date:'shortTime'}} {{meal.description}}
-              			<span class="label label-default">{{meal.calories}} calories</span>
+              		<li>
+              			<span class="label label-default">{{meal.date| date:'medium'}}</span>
+              			<span ng-class="editMeal.isAboveTheLimit(meal.date) ? 'label label-danger' : 'label label-success'">{{meal.calories}} calories</span>
+              			{{meal.description}}
               		</li>
               		<li> 
 						<div align="right"">
