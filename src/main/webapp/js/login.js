@@ -20,11 +20,11 @@
 		this.password = "senha"; // FIXME remove this value 
 		this.$messages = {};
 		this.submit = function() {
-			loginFactory.async(this.email, this.password).then(function(d) {
-				$scope.calories.login(d);
+			loginFactory.async(this.email, this.password).then(function(d) {				
 				if(!d) {
 					$scope.login.$messages.invalidLogin = true;
 				} else {
+					$scope.calories.login(d);
 					$scope.login.$messages = {}
 				}
 			});
