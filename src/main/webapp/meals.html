@@ -53,16 +53,16 @@
 		         </ul>
 				<ul class="nav nav-tabs nav-justified" ng-show="editMeal.isEditMode(meal)">
 					<li><fieldset class="form-group">
-						<input type="date" class="form-control" required/>
+						<input type="date" class="form-control" ng-model="meal.date" required/>
 					</fieldset></li>
 					<li><fieldset class="form-group">
-						<input type="time" class="form-control" required/>
-					</fieldlit></li>
-					<li><fieldset class="form-group">
-						<input type="text" class="form-control" placeholder="description" required/>
+						<input type="time" class="form-control" ng-model="meal.date" required/>
 					</fieldset></li>
 					<li><fieldset class="form-group">
-						<input type="number" class="form-control" placeholder="calories" required/>
+						<input type="text" class="form-control" placeholder="description" ng-model="meal.description" required/>
+					</fieldset></li>
+					<li><fieldset class="form-group">
+						<input type="number" class="form-control" placeholder="calories" ng-model="meal.calories" required/>
 					</fieldset></li>
 					<li>
 						<div align="right">

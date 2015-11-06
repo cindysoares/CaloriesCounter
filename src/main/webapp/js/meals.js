@@ -28,7 +28,21 @@
 		return myService;
 	});
 	
-	mealsApp.controller('MealsCtrl', function($scope, $filter, addMealService, removeMealService) {
+	mealsApp.factory('updateMealService',  function($http) {
+		var myService = {
+				async: function (userId, meal) {
+					var promise = $http.post("/meals/update/" + userId + "/" + meal.id, null, 
+							{params: {date: meal.date.getTime(), description: meal.description, calories: meal.calories}})
+					.then(function(response){
+						return response.data;
+					});
+					return promise;
+				}
+		};
+		return myService;
+	});	
+	
+	mealsApp.controller('MealsCtrl', function($scope, $filter, addMealService, removeMealService, updateMealService) {
 		this.$messages = {}
 		this.editedMeal = {};
 		this.editMode = false;
@@ -90,8 +104,19 @@
 				}
 			});			
 		};
-		this.updateMeal = function() {
-			this.editMode = false;
+		this.updateMeal = function(mealToUpdate) {
+			this.selectedIndex = this.calories.loggedUser.meals.indexOf(mealToUpdate);
+			updateMealService.async(this.calories.loggedUser.id, mealToUpdate).then(function(d){				
+				if (d != null) {
+					$scope.editMeal.calories.loggedUser.meals.splice( $scope.editMeal.selectedIndex, 1 );
+					$scope.editMeal.calories.loggedUser.meals.push(d);
+					$scope.editMeal.recountDailyCalories();
+					$scope.editMeal.editMode = false;
+					$scope.editMeal.$messages.updateSuccess = true;
+				} else {
+					$scope.editMeal.$messages.warning = true;
+				}
+			});		
 		};
 		this.init = function() {
 			this.list = this.calories.loggedUser.meals;
@@ -99,7 +124,7 @@
 			this.editedMeal = {};
 			this.$messages = {};
 			this.filters = {};
-			this.recountDailyCalories();			
+			this.recountDailyCalories();
 		};
 		this.recountDailyCalories = function() {
 			this.dailyCaloriesCount = {};
@@ -111,6 +136,7 @@
 					count = 0;
 				}
 				this.dailyCaloriesCount[shortDate] = count + meal.calories;
+				meal.date = new Date(meal.date);				
 			}
 		}
 		this.isAboveTheLimit = function(date) {
