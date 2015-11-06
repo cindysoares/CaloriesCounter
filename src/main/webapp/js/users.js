@@ -133,6 +133,12 @@
 			});			
 		};
 		this.updateUser = function(userToUpdate) {
+			if(userToUpdate.password != userToUpdate.repeatedPassword) {
+				this.$messages = {};
+				this.$messages.warning = true;
+				return;
+			}
+
 			this.selectedIndex = this.list.indexOf(userToUpdate);
 			usersUpdateService.async(userToUpdate).then(function(d){				
 				if (d != null) {
@@ -142,6 +148,7 @@
 					$scope.users.$messages.updateSuccess = true;
 					$scope.users.sortList();
 				} else {
+					$scope.users.$messages = {};
 					$scope.users.$messages.warning = true;
 				}
 			});		

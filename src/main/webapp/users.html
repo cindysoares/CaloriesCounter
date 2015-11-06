@@ -14,11 +14,11 @@
 		             	</div>
 		            </li>
 		         </ul>
-				<ul class="nav nav-tabs nav-justified" ng-show="users.isEditMode(user)">
+				 <ul class="nav nav-tabs nav-justified" ng-show="users.isEditMode(user)">
 					<li><input type="text" class="form-control" ng-model="user.name" placeholder="name" required/></li>
 					<li><input type="email" class="form-control" ng-model="user.email" placeholder="e-mail" required/></li>
-					<li><input type="password" class="form-control" ng-model="users.password" placeholder="new password" required/></li>
-					<li><input type="password" class="form-control" ng-model="users.repeatedPassword" placeholder="repeat password" required/></li>
+					<li><input type="password" class="form-control" ng-model="user.password" placeholder="new password" required/></li>
+					<li><input type="password" class="form-control" ng-model="user.repeatedPassword" placeholder="repeat password" required/></li>
 					<li>
 						<select class="form-control" ng-model="user.profile"  placeholder="profile" required>
 						    <option value="user" ng-selected="'USER'.equals(user.profile)">USER</option>
@@ -32,7 +32,7 @@
 					<a href ng-click="users.setEditMode(false)"><span style="font-size:1.5em;" class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></a>
 					</div>
 					</li>
-				</ul>		         
+				</ul>
 			</li>
 			<li class="list-group-item" ng-show="users.isEditMode({})">
 				<ul class="nav nav-tabs nav-justified">
@@ -55,7 +55,7 @@
 					</li>
 				</ul>
 			</li>
-			<li class="list-group-item" ng-hide="users.isEditMode()">
+			<li class="list-group-item" ng-hide="users.isEditMode({})">
 				<div align="right" >
 					<a href ng-click="users.setEditMode(true)"><span style="font-size:1.5em;" class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></a>
 				</div>
