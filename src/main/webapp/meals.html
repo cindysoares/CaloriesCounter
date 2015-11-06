@@ -1,4 +1,40 @@
 <div class="panel" ng-controller='MealsCtrl as editMeal'>
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<form class="navbar-form navbar-right" role="search">
+					<div class="row">
+						<div class="col-lg-3">
+							<div class="input-group">
+								<span class="input-group-addon">from</span> <input type="date" class="form-control" placeholder="from">
+							</div>
+						</div>
+						<div class="col-lg-3">
+							<div class="input-group">
+								<span class="input-group-addon">to</span> <input type="date" class="form-control" placeholder="to">
+							</div>
+						</div>
+						<div class="col-lg-2">
+							<div class="input-group">
+								<span class="input-group-addon">from</span> <input type="time" class="form-control" placeholder="from">
+							</div>
+						</div>
+						<div class="col-lg-2">
+							<div class="input-group">
+								<span class="input-group-addon">to</span> <input type="time" class="form-control" placeholder="to">
+							</div>
+						</div>
+						<div class="col-lg-1">
+							<div class="input-group-btn">
+								<button type="button" class="btn btn-default" aria-label="Search">
+									<span class="glyphicon glyphicon-filter"></span>
+								</button>
+							</div>
+						</div>
+				</form>
+			</div>
+		</div>
+	</nav>
 	<div><form name="formMeal" ng-submit="editMeal.save()">
 		<ul class="list-group">
             <li class="list-group-item" ng-repeat="meal in calories.loggedUser.meals">
