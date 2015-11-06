@@ -154,6 +154,7 @@
 			});		
 		};
 		this.listMeals = function(user) {
+			$scope.section.setSelectedUser(user);
 			$scope.section.setTab('meals');
 		}
 		

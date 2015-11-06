@@ -54,6 +54,9 @@
 		  		<li role="presentation" ng-show="section.tabIsVisible('settings')">
 		  			<span class="label label-default">{{calories.loggedUser.caloriesLimit}} daily calories</span>
 		  		</li>
+		  		<li role="presentation" ng-show="section.selectedUser">
+		  			<span class="label label-primary">Selected User: {{section.selectedUser.name}}</span>
+		  		</li>		  		
 	  		</ul>
 	  		<users ng-show="section.isSelected('users')"></users>
 	  		<meals ng-show="section.isSelected('meals')" ></meals>

@@ -51,6 +51,7 @@
 		this.dailyCaloriesCount = {};
 		this.filters = {};
 		this.list = {};
+		this.selectedUser = null;
 		
 		this.setEditMode = function(value) {
 			this.init();
@@ -71,7 +72,7 @@
 		};
 		this.removeMeal = function(mealToRemove) {
 			this.selectedIndex = -1
-			var mealsArray = eval( this.calories.loggedUser.meals );
+			var mealsArray = eval( this.selectedUser.meals );
 			for( var i = 0; i < mealsArray.length; i++ ) {
 				if( mealsArray[i].id === mealToRemove.id ) {
 					this.selectedIndex = i;
@@ -81,9 +82,9 @@
 			if( this.selectedIndex === -1 ) {
 				this.$messages.warning = true;
 			}
-			removeMealService.async(this.calories.loggedUser.id, mealToRemove.id).then(function(removed) {
+			removeMealService.async(this.selectedUser.id, mealToRemove.id).then(function(removed) {
 				if (removed) {
-					$scope.editMeal.calories.loggedUser.meals.splice( $scope.editMeal.selectedIndex, 1 );
+					$scope.editMeal.selectedUser.meals.splice( $scope.editMeal.selectedIndex, 1 );
 					$scope.editMeal.recountDailyCalories();
 					$scope.editMeal.$messages.deleteSuccess = true;
 				} else {
@@ -92,9 +93,9 @@
 			});			
 		};
 		this.addMeal = function() {
-			addMealService.async(this.calories.loggedUser.id, this.editedMeal).then(function(d){
+			addMealService.async(this.selectedUser.id, this.editedMeal).then(function(d){
 				if (d != null) {
-					$scope.editMeal.calories.loggedUser.meals.push(d);
+					$scope.editMeal.selectedUser.meals.push(d);
 					$scope.editMeal.recountDailyCalories();
 					$scope.editMeal.editedMeal = {};
 					$scope.editMeal.editMode = false;
@@ -105,11 +106,11 @@
 			});			
 		};
 		this.updateMeal = function(mealToUpdate) {
-			this.selectedIndex = this.calories.loggedUser.meals.indexOf(mealToUpdate);
-			updateMealService.async(this.calories.loggedUser.id, mealToUpdate).then(function(d){				
+			this.selectedIndex = this.selectedUser.meals.indexOf(mealToUpdate);
+			updateMealService.async(this.selectedUser.id, mealToUpdate).then(function(d){				
 				if (d != null) {
-					$scope.editMeal.calories.loggedUser.meals.splice( $scope.editMeal.selectedIndex, 1 );
-					$scope.editMeal.calories.loggedUser.meals.push(d);
+					$scope.editMeal.selectedUser.meals.splice( $scope.editMeal.selectedIndex, 1 );
+					$scope.editMeal.selectedUser.meals.push(d);
 					$scope.editMeal.recountDailyCalories();
 					$scope.editMeal.editMode = false;
 					$scope.editMeal.$messages.updateSuccess = true;
@@ -119,7 +120,7 @@
 			});		
 		};
 		this.init = function() {
-			this.list = this.calories.loggedUser.meals;
+			this.list = this.selectedUser.meals;
 			this.editMode = false;
 			this.editedMeal = {};
 			this.$messages = {};
@@ -128,8 +129,8 @@
 		};
 		this.recountDailyCalories = function() {
 			this.dailyCaloriesCount = {};
-			for ( var mealIndex in this.calories.loggedUser.meals) {
-				var meal = this.calories.loggedUser.meals[mealIndex];
+			for ( var mealIndex in this.selectedUser.meals) {
+				var meal = this.selectedUser.meals[mealIndex];
 				var shortDate = $filter('date')(meal.date, 'shortDate');
 				var count = this.dailyCaloriesCount[shortDate];
 				if (!count) {
@@ -138,24 +139,24 @@
 				this.dailyCaloriesCount[shortDate] = count + meal.calories;
 				meal.date = new Date(meal.date);				
 			}
-			this.calories.loggedUser.meals.sort(function(a, b){return b.date.getTime()-a.date.getTime()});
+			this.selectedUser.meals.sort(function(a, b){return b.date.getTime()-a.date.getTime()});
 		}
 		this.isAboveTheLimit = function(date) {
 			var shortDate = $filter('date')(date, 'shortDate');
 			var count = this.dailyCaloriesCount[shortDate];
 			if(!count) return false;
-			if(count <= this.calories.loggedUser.caloriesLimit) return false;
+			if(count <= this.selectedUser.caloriesLimit) return false;
 			return true;
 		}
 		
 		this.filter = function() {
 			if(this.filters.active) {
 				this.filters.active = false;
-				this.list = this.calories.loggedUser.meals;
+				this.list = this.selectedUser.meals;
 				return;
 			}
 			this.filters.active = true;
-			this.list = this.calories.loggedUser.meals.filter(function(meal){
+			this.list = this.selectedUser.meals.filter(function(meal){
 				var shortDateFrom = $filter('date')($scope.editMeal.filters.dateFrom, 'yyyyMMdd');
 				var shortDateTo = $filter('date')($scope.editMeal.filters.dateTo, 'yyyyMMdd');
 				var shortTimeFrom = $filter('date')($scope.editMeal.filters.timeFrom, 'HHmm');
@@ -172,7 +173,12 @@
 		};
 
 		$scope.$on("tabSelected", function(event, args){
-			if (args.selectedTab === 'meals') {
+			if (args.selectedTab === 'meals') {				
+				if($scope.section.selectedUser) {
+					$scope.editMeal.selectedUser = $scope.section.selectedUser;
+				} else {
+					$scope.editMeal.selectedUser = $scope.calories.loggedUser;
+				}
 				$scope.editMeal.init();	
 			}
 		});

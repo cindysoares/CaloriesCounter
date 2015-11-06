@@ -38,9 +38,13 @@
 	app.controller('SectionController', function($scope) {
 		this.selectedTab = {};
 		this.visibleTabs = [];
+		this.selectedUser = null;
 		this.setTab = function(newTab) {
 			this.selectedTab = newTab;
 			$scope.tabSelected();	
+		};
+		this.setSelectedUser = function(user) {
+			this.selectedUser = user;
 		};
 		this.isSelected = function(tab) {
 			return this.selectedTab === tab;
@@ -57,6 +61,9 @@
 			$scope.section.visibleTabs = visibleTabsRoles[userProfile];
 			$scope.section.setTab($scope.section.visibleTabs[0]);
 		});
+		$scope.$on("logout", function(event, args){
+			$scope.section.selectedUser = null;
+		});		
 		
 	});
 	
