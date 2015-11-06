@@ -3,8 +3,9 @@
 		<ul class="list-group">
 			<li class="list-group-item" ng-repeat="user in users.list">
 				<ul class="nav nav-tabs nav-justified">
-					<li>{{user.name}} ({{user.email}})
+					<li>
 						<span class="label label-default">{{user.profile}}</span>
+						<b>{{user.name}}</b> ({{user.email}})
 					</li>
 					<li> 
 						<div align="right"">
