@@ -51,8 +51,11 @@
 		  			<a href ng-click="section.setTab('settings')">
 		  			<span style="font-size:1.5em;" class="glyphicon glyphicon-cog" aria-hidden="true"/></a> 
 		  		</li>
-		  		<li role="presentation" ng-show="section.tabIsVisible('settings')">
+		  		<li role="presentation" ng-show="section.tabIsVisible('settings')"  ng-hide="section.selectedUser">
 		  			<span class="label label-default">{{calories.loggedUser.caloriesLimit}} daily calories</span>
+		  		</li>
+		  		<li role="presentation" ng-show="section.tabIsVisible('settings')" ng-show="section.selectedUser">
+		  			<span class="label label-default">{{section.selectedUser.caloriesLimit}} daily calories</span>
 		  		</li>
 		  		<li role="presentation" ng-show="section.selectedUser">
 		  			<span class="label label-primary">Selected User: {{section.selectedUser.name}}</span>
