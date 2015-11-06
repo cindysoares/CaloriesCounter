@@ -55,6 +55,7 @@
 			removeMealService.async(this.calories.loggedUser.id, mealToRemove.id).then(function(removed) {
 				if (removed) {
 					$scope.editMeal.calories.loggedUser.meals.splice( $scope.editMeal.selectedIndex, 1 );
+					$scope.editMeal.recountDailyCalories();
 					$scope.editMeal.$messages.deleteSuccess = true;
 				} else {
 					$scope.editMeal.$messages.warning = true;
@@ -65,6 +66,7 @@
 			addMealService.async(this.calories.loggedUser.id, this.editedMeal).then(function(d){
 				if (d != null) {
 					$scope.editMeal.calories.loggedUser.meals.push(d);
+					$scope.editMeal.recountDailyCalories();
 					$scope.editMeal.editedMeal = {};
 					$scope.editMeal.editMode = false;
 					$scope.editMeal.$messages.saveSuccess = true;
@@ -78,17 +80,20 @@
 		};
 		this.init = function() {
 			this.$messages = {}
+			this.recountDailyCalories();
+		};
+		this.recountDailyCalories = function() {
 			this.dailyCaloriesCount = {};
 			for ( var mealIndex in this.calories.loggedUser.meals) {
 				var meal = this.calories.loggedUser.meals[mealIndex];
-				var date = $filter('date')(meal.date, 'shortDate');
-				var count = this.dailyCaloriesCount[date];
+				var shortDate = $filter('date')(meal.date, 'shortDate');
+				var count = this.dailyCaloriesCount[shortDate];
 				if (!count) {
 					count = 0;
 				}
-				this.dailyCaloriesCount[date] = count + meal.calories;
+				this.dailyCaloriesCount[shortDate] = count + meal.calories;
 			}
-		};
+		}
 		this.isAboveTheLimit = function(date) {
 			var shortDate = $filter('date')(date, 'shortDate');
 			var count = this.dailyCaloriesCount[shortDate];
