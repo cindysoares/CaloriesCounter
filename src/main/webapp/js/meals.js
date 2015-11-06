@@ -149,6 +149,12 @@
 		}
 		
 		this.filter = function() {
+			if(this.filters.active) {
+				this.filters.active = false;
+				this.list = this.calories.loggedUser.meals;
+				return;
+			}
+			this.filters.active = true;
 			this.list = this.calories.loggedUser.meals.filter(function(meal){
 				var shortDateFrom = $filter('date')($scope.editMeal.filters.dateFrom, 'yyyyMMdd');
 				var shortDateTo = $filter('date')($scope.editMeal.filters.dateTo, 'yyyyMMdd');
