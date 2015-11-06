@@ -39,8 +39,21 @@
 		this.list = {};
 		
 		this.setEditMode = function(value) {
-			this.editMode = value;
 			this.init();
+			this.editMode = value;
+		};
+		this.isEditMode = function(meal) {
+			if(!this.editMode) return false;
+			if(!meal) return false;
+			
+			if( !this.editMode.id && !meal.id ) {
+				return true;
+			}
+			
+			if(this.editMode.id === meal.id) {
+				return true;
+			}
+			return false;
 		};
 		this.removeMeal = function(mealToRemove) {
 			this.selectedIndex = -1
@@ -78,10 +91,12 @@
 			});			
 		};
 		this.updateMeal = function() {
-			this.loggedUser.meals.push(editedMeal);
+			this.editMode = false;
 		};
 		this.init = function() {
 			this.list = this.calories.loggedUser.meals;
+			this.editMode = false;
+			this.editedMeal = {};
 			this.$messages = {};
 			this.filters = {};
 			this.recountDailyCalories();			
