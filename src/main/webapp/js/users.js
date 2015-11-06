@@ -44,8 +44,26 @@
 		};
 		return myService;
 	});
-
-	usersApp.controller('UsersCtrl', function($scope, usersFindAllService, usersAddService, usersRemoveService) {
+	
+	usersApp.factory('usersUpdateService', function($http) {
+		var myService = {
+				async: function (user) {
+					var promise = $http.post("/users/update/"+user.id, null, {params:{
+						name: user.name,
+						email: user.email,
+						password: user.password,
+						profile: user.profile
+					}})
+					.then(function(response){
+						return response.data;
+					});
+					return promise;
+				}
+		};
+		return myService;
+	});	
+	
+	usersApp.controller('UsersCtrl', function($scope, usersFindAllService, usersAddService, usersRemoveService, usersUpdateService) {
 		this.list = {};
 		this.editMode = false;
 		this.newUser = {}
@@ -53,6 +71,19 @@
 		this.setEditMode = function(value) {
 			this.editMode = value;
 		};
+		this.isEditMode = function(user) {
+			if(!this.editMode) return false;
+			if(!user) return false;
+			
+			if( !this.editMode.id && !user.id ) {
+				return true;
+			}
+			
+			if(this.editMode.id === user.id) {
+				return true;
+			}
+			return false;
+		};		
 		this.init = function() {
 			usersFindAllService.async().then(function(d) {
 				$scope.users.list = d;
@@ -96,6 +127,19 @@
 				}
 			});			
 		};
+		this.updateUser = function(userToUpdate) {
+			this.selectedIndex = this.list.indexOf(userToUpdate);
+			usersUpdateService.async(userToUpdate).then(function(d){				
+				if (d != null) {
+					$scope.users.list.splice( $scope.users.selectedIndex, 1 );
+					$scope.users.list.push(d);
+					$scope.users.editMode = false;
+					$scope.users.$messages.updateSuccess = true;
+				} else {
+					$scope.users.$messages.warning = true;
+				}
+			});		
+		};		
 		
 		$scope.$on("tabSelected", function(event, args){
 			if (args.selectedTab === 'users') {
