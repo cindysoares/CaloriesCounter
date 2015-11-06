@@ -64,7 +64,7 @@
 	});	
 	
 	usersApp.controller('UsersCtrl', function($scope, usersFindAllService, usersAddService, usersRemoveService, usersUpdateService) {
-		this.list = {};
+		this.list = [];
 		this.editMode = false;
 		this.newUser = {}
 		this.$messages = {};
@@ -89,6 +89,10 @@
 				$scope.users.list = d;
 			});
 			this.$messages = {};
+			this.sortList();
+		};
+		this.sortList = function() {
+			this.list.sort(function(a, b){return a.name.localeCompare(b.name)});
 		};
 		this.addUser = function() {
 			if(this.newUser.password != this.newUser.repeatedPassword) {
@@ -101,6 +105,7 @@
 					$scope.users.$messages.saveSuccess = true;
 					$scope.users.newUser = {};
 					$scope.users.setEditMode(false);
+					this.sortList();
 				} else {
 					$scope.users.$messages.warning = true;
 				}
@@ -135,6 +140,7 @@
 					$scope.users.list.push(d);
 					$scope.users.editMode = false;
 					$scope.users.$messages.updateSuccess = true;
+					$scope.users.sortList();
 				} else {
 					$scope.users.$messages.warning = true;
 				}

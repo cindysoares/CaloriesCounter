@@ -170,6 +170,9 @@
 				$scope.editMeal.init();	
 			}
 		});
+		$scope.$on("logout", function(event, args){
+			$scope.editMeal.list = [];
+		});
 
 	});
 	

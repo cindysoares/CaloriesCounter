@@ -11,6 +11,7 @@
 		this.registeringShowing = false;
 		this.logout = function() {
 			this.loggedUser = null;
+			$scope.logout();
 		};
 		this.showLogin = function() {
 			this.loggingShowing = true;
@@ -28,6 +29,9 @@
 		};
 		$scope.loginSuccess = function(){
 		   $scope.$broadcast("loginSuccess", {loggedUser: $scope.calories.loggedUser});
+		};		
+		$scope.logout = function(){
+		   $scope.$broadcast("logout", {loggedUser: $scope.calories.loggedUser});
 		};		
 	});
   
