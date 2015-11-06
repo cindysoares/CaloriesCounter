@@ -37,17 +37,16 @@ public class MealsManager {
 	@POST
 	@Path("/update/{userId}/{mealId}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public boolean updateMeal(@PathParam("userId") Integer userId, @PathParam("mealId") Integer mealId, 
-			@QueryParam("date") Date date, @QueryParam("description") String description, @QueryParam("calories") Integer calories) {
+	public Meal updateMeal(@PathParam("userId") Integer userId, @PathParam("mealId") Integer mealId, 
+			@QueryParam("date") long date, @QueryParam("description") String description, @QueryParam("calories") Integer calories) {
 		User user = dao.find(userId);
 		Meal meal = user.getMeals().stream().filter(m -> m.getId().equals(mealId)).findFirst().orElse(null);
-		if(meal == null) {
-			return false;
+		if(meal != null) {
+			meal.setDate(new Date(date));
+			meal.setDescription(description);
+			meal.setCalories(calories);
 		}
-		meal.setDate(date);
-		meal.setDescription(description);
-		meal.setCalories(calories);
-		return true;
+		return meal;
 	}
 
 	@DELETE

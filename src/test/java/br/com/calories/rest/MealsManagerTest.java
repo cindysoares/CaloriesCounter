@@ -63,4 +63,27 @@ public class MealsManagerTest  extends JerseyTest {
         Assert.assertFalse("Removed a non-existent meal.", responseMsg);
     }
 
+    @Test
+    public void test_updateMeal() {
+        WebTarget target = target();
+        Date date = new Date();
+		Meal responseMsg = target.path("/meals/update/1/1")
+        		.queryParam("date", date.getTime())
+        		.queryParam("description", "any thing")
+        		.queryParam("calories", new Integer(2))
+        		.request(MediaType.APPLICATION_JSON).post(null, Meal.class);
+        Assert.assertNotNull("Didn´t update the meal.", responseMsg);
+        Assert.assertEquals(new Integer(1), responseMsg.getId());
+        Assert.assertEquals("any thing", responseMsg.getDescription());
+        Assert.assertEquals(new Integer(2), responseMsg.getCalories());
+        Assert.assertEquals(date, responseMsg.getDate());
+    }
+    
+    @Test
+    public void test_updateMealToANonExistentUser() {
+        WebTarget target = target();
+        Meal responseMsg = target.path("/meals/update/1/999")
+        		.request(MediaType.APPLICATION_JSON).post(null, Meal.class);
+        Assert.assertNull("Updated a non-existent meal.", responseMsg);
+    }
 }
