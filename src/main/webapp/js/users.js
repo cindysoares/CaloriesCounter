@@ -152,7 +152,10 @@
 					$scope.users.$messages.warning = true;
 				}
 			});		
-		};		
+		};
+		this.listMeals = function(user) {
+			$scope.section.setTab('meals');
+		}
 		
 		$scope.$on("tabSelected", function(event, args){
 			if (args.selectedTab === 'users') {
