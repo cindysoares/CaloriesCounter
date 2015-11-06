@@ -22,9 +22,9 @@
 					<li><input type="password" class="form-control" ng-model="user.repeatedPassword" placeholder="repeat password" required/></li>
 					<li>
 						<select class="form-control" ng-model="user.profile"  placeholder="profile" required>
-						    <option value="user" ng-selected="'USER'.equals(user.profile)">USER</option>
-						    <option value="user_manager" ng-selected="'USER_MANAGER'.equals(user.profile)">USER_MANAGER</option>
-						    <option value="admin_manager" ng-selected="'ADMIN_MANAGER'.equals(user.profile)">ADMIN_MANAGER</option>
+						    <option value="USER">USER</option>
+						    <option value="USER_MANAGER">USER_MANAGER</option>
+						    <option value="ADMIN_MANAGER" ng-selected="'ADMIN_MANAGER'.equals(user.profile)">ADMIN_MANAGER</option>
 						</select>
 					</li>
 					<li>
