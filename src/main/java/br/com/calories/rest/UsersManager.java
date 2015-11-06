@@ -40,7 +40,9 @@ public class UsersManager {
 		if (user == null) return null;
 		user.setName(name);
 		user.setEmail(email);
-		user.setPassword(password);
+		if(password != null && !password.trim().isEmpty()) {
+			user.setPassword(password);
+		}
 		user.setProfile(getProfile(profileName));
 		return dao.update(user);
 	}
