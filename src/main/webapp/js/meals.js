@@ -138,6 +138,7 @@
 				this.dailyCaloriesCount[shortDate] = count + meal.calories;
 				meal.date = new Date(meal.date);				
 			}
+			this.calories.loggedUser.meals.sort(function(a, b){return b.date.getTime()-a.date.getTime()});
 		}
 		this.isAboveTheLimit = function(date) {
 			var shortDate = $filter('date')(date, 'shortDate');
