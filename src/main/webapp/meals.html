@@ -6,27 +6,27 @@
 					<div class="row">
 						<div class="col-lg-3">
 							<div class="input-group">
-								<span class="input-group-addon">from</span> <input type="date" class="form-control" placeholder="from">
+								<span class="input-group-addon">from</span> <input type="date" class="form-control" placeholder="from" ng-model="editMeal.filters.dateFrom">
 							</div>
 						</div>
 						<div class="col-lg-3">
 							<div class="input-group">
-								<span class="input-group-addon">to</span> <input type="date" class="form-control" placeholder="to">
+								<span class="input-group-addon">to</span> <input type="date" class="form-control" placeholder="to" ng-model="editMeal.filters.dateTo">
 							</div>
 						</div>
 						<div class="col-lg-2">
 							<div class="input-group">
-								<span class="input-group-addon">from</span> <input type="time" class="form-control" placeholder="from">
+								<span class="input-group-addon">from</span> <input type="time" class="form-control" placeholder="from" ng-model="editMeal.filters.timeFrom">
 							</div>
 						</div>
 						<div class="col-lg-2">
 							<div class="input-group">
-								<span class="input-group-addon">to</span> <input type="time" class="form-control" placeholder="to">
+								<span class="input-group-addon">to</span> <input type="time" class="form-control" placeholder="to" ng-model="editMeal.filters.timeTo">
 							</div>
 						</div>
 						<div class="col-lg-1">
 							<div class="input-group-btn">
-								<button type="button" class="btn btn-default" aria-label="Search">
+								<button type="button" class="btn btn-default" aria-label="Search" ng-click="editMeal.filter()">
 									<span class="glyphicon glyphicon-filter"></span>
 								</button>
 							</div>
@@ -37,7 +37,7 @@
 	</nav>
 	<div><form name="formMeal" ng-submit="editMeal.save()">
 		<ul class="list-group">
-            <li class="list-group-item" ng-repeat="meal in calories.loggedUser.meals">
+            <li class="list-group-item" ng-repeat="meal in editMeal.list">
             	<ul class="nav nav-tabs nav-justified">
               		<li>
               			<span class="label label-default">{{meal.date| date:'medium'}}</span>

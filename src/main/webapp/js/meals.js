@@ -35,6 +35,8 @@
 		this.calories = $scope.$parent.$parent.calories;
 		this.selectedIndex = -1;
 		this.dailyCaloriesCount = {};
+		this.filters = {};
+		this.list = {};
 		
 		this.setEditMode = function(value) {
 			this.editMode = value;
@@ -79,8 +81,10 @@
 			this.loggedUser.meals.push(editedMeal);
 		};
 		this.init = function() {
-			this.$messages = {}
-			this.recountDailyCalories();
+			this.list = this.calories.loggedUser.meals;
+			this.$messages = {};
+			this.filters = {};
+			this.recountDailyCalories();			
 		};
 		this.recountDailyCalories = function() {
 			this.dailyCaloriesCount = {};
@@ -101,6 +105,23 @@
 			if(count <= this.calories.loggedUser.caloriesLimit) return false;
 			return true;
 		}
+		
+		this.filter = function() {
+			this.list = this.calories.loggedUser.meals.filter(function(meal){
+				var shortDateFrom = $filter('date')($scope.editMeal.filters.dateFrom, 'yyyyMMdd');
+				var shortDateTo = $filter('date')($scope.editMeal.filters.dateTo, 'yyyyMMdd');
+				var shortTimeFrom = $filter('date')($scope.editMeal.filters.timeFrom, 'HHmm');
+				var shortTimeTo = $filter('date')($scope.editMeal.filters.timeTo, 'HHmm');
+
+				var mealShortDate = $filter('date')(meal.date, 'yyyyMMdd');
+				var mealShortTime = $filter('date')(meal.date, 'HHmm');
+				
+				return (!shortDateFrom || mealShortDate >= shortDateFrom )
+					&& (!shortDateTo || mealShortDate <= shortDateTo )
+					&& (!shortTimeFrom || mealShortTime >= shortTimeFrom )
+					&& (!shortTimeTo || mealShortTime <= shortTimeTo );
+			});
+		};
 
 		$scope.$on("tabSelected", function(event, args){
 			if (args.selectedTab === 'meals') {
